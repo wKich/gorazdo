@@ -2,6 +2,9 @@
 import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Card from "./components/Card";
+import Header from "./components/Header";
+import Box from "./components/atoms/Box";
 
 function App() {
   useEffect(() => {
@@ -33,8 +36,47 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <div id="load"></div>
-      <header className="App-header"></header>
+      <Header />
+      <header className="App-header">
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Card>
+          <h2>some text</h2>
+        </Card>
+        <Box>
+          <Card>
+            <img src="//placekitten.com/200/200" />
+          </Card>
+          <Card>
+            <img src="//placekitten.com/200/202" />
+          </Card>
+          <Card>
+            <img src="//placekitten.com/200/203" />
+          </Card>
+        </Box>
+        <Box>
+          <Card>
+            <img src="//placekitten.com/200/200" />
+          </Card>
+          <Card>
+            <img src="//placekitten.com/200/203" />
+          </Card>
+        </Box>
+        <div style={{ height: 2000 }}></div>
+      </header>
     </div>
   );
 }
