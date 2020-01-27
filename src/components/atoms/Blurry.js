@@ -5,10 +5,14 @@ import styled from "styled-components";
 const StyledDiv = styled.div`
   padding: 20px;
 `;
-
+const getShift = props => {
+  if (props.inView) {
+    return null;
+  }
+};
 const AnimationWrapper = styled.div`
   transition: all 600ms;
-  transform: translateY(${props => (props.inView ? 0 : "-20px")});
+  transform: ${getShift};
   filter: blur(${props => (props.inView ? 0 : "10px")});
 `;
 
@@ -19,9 +23,16 @@ const Blurry = ({ children }) => {
     rootMargin: "-20% 0px"
   });
 
+  let position = null;
+  if (ref.current) {
+    console.log(ref.current.offsetTop);
+  }
+
   return (
     <StyledDiv ref={ref}>
-      <AnimationWrapper inView={inView}>{children}</AnimationWrapper>
+      <AnimationWrapper inView={inView} position={position}>
+        {children}
+      </AnimationWrapper>
     </StyledDiv>
   );
 };
