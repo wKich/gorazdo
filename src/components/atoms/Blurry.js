@@ -12,10 +12,10 @@ const AnimationWrapper = styled.div`
   filter: blur(${props => (props.inView ? 0 : "10px")});
 `;
 
-const Card = ({ children }) => {
+const Blurry = ({ children }) => {
   const [ref, inView, entry] = useInView({
     /* Optional options */
-    threshold: 0,
+    threshold: 0.2,
     rootMargin: "-20% 0px"
   });
 
@@ -26,4 +26,4 @@ const Card = ({ children }) => {
   );
 };
 
-export default Card;
+export default Blurry;

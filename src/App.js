@@ -2,9 +2,16 @@
 import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Card from "./components/Card";
+import Blurry from "./components/atoms/Blurry";
 import Header from "./components/Header";
 import Box from "./components/atoms/Box";
+import Image from "./components/Image";
+import Card from "./components/organisms/Card";
+import { Helmet } from "react-helmet";
+import { TypographyStyle, GoogleFont } from "react-typography";
+// Best practice is to have a typography module
+// where you define your theme.
+import typography from "./utils/typography";
 
 function App() {
   useEffect(() => {
@@ -36,44 +43,96 @@ function App() {
   }, []);
   return (
     <div className="App">
+      <TypographyStyle typography={typography} />
+      <GoogleFont typography={typography} />
       <Header />
       <header className="App-header">
-        <Card>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
-        <Card>
+        </Blurry>
+        <Box wrap>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+          <Blurry>
+            <Card
+              title="Business card"
+              description="THe common business cards that you met the whole your life. We can use whatever paper you prefer"
+            />
+          </Blurry>
+        </Box>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
-        <Card>
+        </Blurry>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
-        <Card>
+        </Blurry>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
-        <Card>
+        </Blurry>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
-        <Card>
+        </Blurry>
+        <Blurry>
           <h2>some text</h2>
-        </Card>
+        </Blurry>
         <Box>
-          <Card>
-            <img src="//placekitten.com/200/200" />
-          </Card>
-          <Card>
-            <img src="//placekitten.com/200/202" />
-          </Card>
-          <Card>
-            <img src="//placekitten.com/200/203" />
-          </Card>
+          <Blurry>
+            <Image src="//placeimg.com/200/200/nature" />
+          </Blurry>
+          <Blurry>
+            <Image src="//placekitten.com/200/202" />
+          </Blurry>
+          <Blurry>
+            <Image src="//placekitten.com/200/203" />
+          </Blurry>
         </Box>
         <Box>
-          <Card>
-            <img src="//placekitten.com/200/200" />
-          </Card>
-          <Card>
-            <img src="//placekitten.com/200/203" />
-          </Card>
+          <Blurry>
+            <Image src="//placekitten.com/200/200" />
+          </Blurry>
+          <Blurry>
+            <Image src="//placekitten.com/200/203" />
+          </Blurry>
         </Box>
         <div style={{ height: 2000 }}></div>
       </header>
