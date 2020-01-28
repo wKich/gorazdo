@@ -8,6 +8,8 @@ const StyledDiv = styled.div`
 
 const AnimationWrapper = styled.div`
   transition: all 600ms;
+  will-change: transform, filter;
+  transform-style: preserve-3d;
   transform: translateY(${props => (props.inView ? 0 : "-20px")});
   filter: blur(${props => (props.inView ? 0 : "10px")});
 `;
