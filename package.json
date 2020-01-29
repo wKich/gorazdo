@@ -18,7 +18,9 @@
     "typography-theme-bootstrap": "^0.16.19"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "run-p --race dev:firebase dev:react",
+    "dev:firebase": "firebase serve -p 4000",
+    "dev:react": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "firebase deploy --only hosting:gorazdo",
     "test": "react-scripts test",
@@ -38,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.20.0",
+    "npm-run-all": "^4.1.5"
   }
 }
