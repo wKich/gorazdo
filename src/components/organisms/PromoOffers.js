@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import Box from "../atoms/Box";
-import styled from "styled-components";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import data from "./data";
+import React, { useState } from 'react';
+import Box from '../atoms/Box';
+import styled from 'styled-components';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import data from './data';
 
 const dataList = data.map(item => ({
   ...item,
-  id: `id${item.id}`
+  id: `id${item.id}`,
 }));
 
 const dataObj = dataList.reduce((acc, item) => {
@@ -132,7 +132,7 @@ const PromoOffers = props => {
     s: [],
     m: [],
     l: [],
-    xl: []
+    xl: [],
   });
 
   const handleDragEnd = props => {
@@ -151,8 +151,8 @@ const PromoOffers = props => {
               destination.index,
               draggableId
             )
-          )
-        ]
+          ),
+        ],
       });
     }
   };
