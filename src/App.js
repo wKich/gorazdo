@@ -12,6 +12,7 @@ import { TypographyStyle, GoogleFont } from "react-typography";
 // Best practice is to have a typography module
 // where you define your theme.
 import typography from "./utils/typography";
+import PromoOffers from "./components/organisms/PromoOffers";
 
 function App() {
   useEffect(() => {
@@ -50,6 +51,7 @@ function App() {
         <Blurry>
           <h2>some text</h2>
         </Blurry>
+        <PromoOffers />
         <Box wrap>
           <Blurry>
             <Card
