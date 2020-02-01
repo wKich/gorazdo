@@ -1,6 +1,10 @@
 import protoTheme from './proto';
 
 const variants = {
+  colors: {
+    paper: '#333',
+    card: 'black',
+  },
   buttons: {
     primary: {},
     secondary: {},
@@ -8,9 +12,9 @@ const variants = {
   },
 };
 
-const theme = {
+const dark = {
   ...protoTheme,
   ...variants,
 };
 
-export default theme;
+export default dark;

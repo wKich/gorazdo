@@ -1,16 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { layout, color } from 'styled-system';
 
 export const StyledBox = styled.div`
-  flex-wrap: ${props => (props.nowrap ? "nowrap" : undefined)};
-  display: ${props => (props.inline ? "inline-flex" : "flex")};
-  flex-direction: ${props => (props.column ? "column" : undefined)};
-  flex-wrap: ${props => (props.wrap ? "wrap" : undefined)};
+  ${layout};
+  ${color};
+  flex-wrap: ${props => (props.nowrap ? 'nowrap' : undefined)};
+  display: ${props => (props.inline ? 'inline-flex' : 'flex')};
+  flex-direction: ${props => (props.column ? 'column' : undefined)};
+  flex-wrap: ${props => (props.wrap ? 'wrap' : undefined)};
   align-items: ${props => props.alignItems};
   justify-content: ${props => props.justify};
-  width: ${props => (props.fullWidth ? "100%" : undefined)};
-  height: ${props => (props.fullHeight ? "100%" : undefined)};
+  width: ${props => (props.fullWidth ? '100%' : undefined)};
+  height: ${props => (props.fullHeight ? '100%' : undefined)};
 `;
 
 const Box = props => <StyledBox {...props} />;
@@ -28,7 +31,7 @@ Box.propTypes = {
   column: PropTypes.bool,
   // alignment
   justify: PropTypes.string,
-  alignItems: PropTypes.string
+  alignItems: PropTypes.string,
 };
 Box.defaultProps = {
   inline: undefined,
@@ -41,6 +44,6 @@ Box.defaultProps = {
   zIndex: null,
   basis: null,
   justify: null,
-  alignItems: null
+  alignItems: null,
 };
 export default Box;
