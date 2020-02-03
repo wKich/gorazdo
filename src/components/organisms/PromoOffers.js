@@ -3,7 +3,8 @@ import Box from '../atoms/Box';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import data from './data';
-import { color, variant } from 'styled-system';
+import { color, layout, space, border, position } from 'styled-system';
+import { MdAdd } from 'react-icons/md';
 
 const dataList = data.map(item => ({
   ...item,
@@ -30,63 +31,12 @@ const AllFeatures = styled.div`
   overflow-y: auto;
 `;
 
-const List = styled.div`
-  min-height: 100px;
-  background: rgba(0, 0, 0, 0.4);
-`;
-
-const PromoOffer = props => {
-  return (
-    <Droppable droppableId={props.id}>
-      {(provided, snapshot) => (
-        <Box column>
-          <Header>
-            <code>[{props.id}]</code>
-            {props.label}
-          </Header>
-          <List ref={provided.innerRef}>
-            {props.ids.map((id, index) => (
-              <Draggable key={id} draggableId={id} index={index}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    <MiniCard {...dataObj[id]} index={index} />
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </List>
-        </Box>
-      )}
-    </Droppable>
-  );
-};
-
-const StyledMiniCardWrapper = styled('div')(
-  variant({
-    scale: 'cards',
-    variants: {
-      // magic
-      unit1: {},
-    },
-  })
-);
-const StyledMiniCard = styled.div`
-  /* background-color: #fbab7e;
-  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
-  background-color: #8ec5fc;
-  background-image: linear-gradient(-30deg, #8ec5fc 0%, #e0c3fc 100%); */
-
-  width: 240px;
-  position: relative;
-  border-radius: 6px;
-  padding: 12px;
-  padding-top: 36px;
-  font-size: 0.8em;
+const StyledDiv = styled.div`
+  ${color};
+  ${position};
+  ${layout};
+  ${space};
+  ${border};
 `;
 const StyledIndex = styled.span`
   position: absolute;
@@ -108,16 +58,45 @@ const StyledId = styled.span`
   font-weight: bold;
   justify-content: center;
 `;
+
+const Ribbon = props => {
+  const { isEmpty, isDraggingOver, isDragStarted } = props;
+  let opacity = 0;
+  if (isEmpty) {
+    if (isDragStarted) {
+      opacity = 0.2;
+    }
+
+    if (isDraggingOver) {
+      opacity = 1;
+    }
+  }
+  return (
+    <StyledDiv position="relative">
+      <Placeholder opacity={opacity} />
+      <Box column minHeight={8} width="20vw" bg="paper" {...props} />
+    </StyledDiv>
+  );
+};
+
+const Icon = styled(Box)`
+  ${position};
+  left: 0;
+  top: 0;
+  font-size: 3em;
+`;
+
 const MiniCard = props => {
   const { albumId, id, title, url, thumbnailUrl, index } = props;
   return (
-    <StyledMiniCardWrapper variant={`unit${albumId}`}>
-      <StyledMiniCard>
+    <StyledDiv p="3" position="relative">
+      <StyledDiv bg="card" borderRadius="3" color="white" p="3">
+        <h4>{title.slice(0, 14)}</h4>
         <p>{title}</p>
         {Number.isInteger(index) && <StyledIndex>{index + 1}</StyledIndex>}
         {<StyledId>{id}</StyledId>}
-      </StyledMiniCard>
-    </StyledMiniCardWrapper>
+      </StyledDiv>
+    </StyledDiv>
   );
 };
 
@@ -126,7 +105,74 @@ const insertAtIndex = (arr, index, item) => {
   shallowCopy.splice(index, 0, item);
   return shallowCopy;
 };
+
+const StyledPlaceholder = styled(StyledDiv)`
+  transition: opacity 200ms;
+`;
+
+const Placeholder = props => {
+  return (
+    <StyledPlaceholder
+      position="absolute"
+      p={5}
+      width="100%"
+      opacity={props.opacity}
+    >
+      <StyledDiv borderRadius="3" height="5" color="#999" border="dropbox">
+        {props.children}
+        <Icon
+          position="absolute"
+          fullHeight
+          fullWidth
+          alignItems="center"
+          justify="center"
+        >
+          <MdAdd />
+        </Icon>
+      </StyledDiv>
+    </StyledPlaceholder>
+  );
+};
+
+const PromoOffer = props => {
+  return (
+    <Droppable droppableId={props.id}>
+      {(provided, snapshot) => (
+        <Box column>
+          <Header>
+            <code>[{props.id}]</code>
+            {props.label}
+          </Header>
+          <div ref={provided.innerRef}>
+            <Ribbon
+              isDraggingOver={snapshot.isDraggingOver}
+              isEmpty={props.ids.length === 0}
+              isDragStarted={props.isDragStarted}
+            >
+              {props.ids.map((id, index) => (
+                <Draggable key={id} draggableId={id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <MiniCard {...dataObj[id]} index={index} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Ribbon>
+          </div>
+        </Box>
+      )}
+    </Droppable>
+  );
+};
+
 const PromoOffers = props => {
+  const [isDragStarted, setDragStarted] = useState(false);
   const [promo, setPromo] = useState({
     market: dataList.map(item => item.id),
     s: [],
@@ -134,9 +180,28 @@ const PromoOffers = props => {
     l: [],
     xl: [],
   });
+  const onBeforeCapture = e => {
+    console.log('onBeforeCapture', e);
+    /*...*/
+  };
 
+  const onBeforeDragStart = e => {
+    setDragStarted(true);
+    console.log('onBeforeDragStart', e);
+    /*...*/
+  };
+
+  const onDragStart = e => {
+    console.log('onDragStart', e);
+    /*...*/
+  };
+  const onDragUpdate = e => {
+    console.log('onDragUpdate', e);
+    /*...*/
+  };
   const handleDragEnd = props => {
     console.log(props);
+    setDragStarted(false);
     const { draggableId, source, destination } = props;
     if (source && destination) {
       setPromo({
@@ -157,18 +222,44 @@ const PromoOffers = props => {
     }
   };
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext
+      onDragEnd={handleDragEnd}
+      onBeforeCapture={onBeforeCapture}
+      onBeforeDragStart={onBeforeDragStart}
+      onDragStart={onDragStart}
+      onDragUpdate={onDragUpdate}
+    >
       <Box>
-        <PromoOffer id="s" label="Basic" ids={promo.s} />
-        <PromoOffer id="m" label="Recommended" ids={promo.m} />
-        <PromoOffer id="l" label="Pro" ids={promo.l} />
-        <PromoOffer id="xl" label="Exclusive" ids={promo.xl} />
+        <PromoOffer
+          isDragStarted={isDragStarted}
+          id="s"
+          label="Basic"
+          ids={promo.s}
+        />
+        <PromoOffer
+          isDragStarted={isDragStarted}
+          id="m"
+          label="Recommended"
+          ids={promo.m}
+        />
+        <PromoOffer
+          isDragStarted={isDragStarted}
+          id="l"
+          label="Pro"
+          ids={promo.l}
+        />
+        <PromoOffer
+          isDragStarted={isDragStarted}
+          id="xl"
+          label="Exclusive"
+          ids={promo.xl}
+        />
       </Box>
       <AllFeatures>
         <Droppable droppableId="market">
           {(provided, snapshot) => (
             <div ref={provided.innerRef}>
-              <List>
+              <Ribbon>
                 {promo.market.map((id, index) => (
                   <Draggable key={id} draggableId={id} index={index}>
                     {(provided, snapshot) => (
@@ -183,7 +274,7 @@ const PromoOffers = props => {
                   </Draggable>
                 ))}
                 {provided.placeholder}
-              </List>
+              </Ribbon>
             </div>
           )}
         </Droppable>

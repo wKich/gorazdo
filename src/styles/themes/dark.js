@@ -1,7 +1,6 @@
 import protoTheme from './proto';
 
 const variants = {
-  colors: {},
   cards: {
     // promo cards
     unit1: {
@@ -20,6 +19,10 @@ const variants = {
       color: 'blue',
       backgroundColor: 'black',
     },
+  },
+  colors: {
+    paper: '#333',
+    card: 'black',
   },
   buttons: {
     primary: {},
