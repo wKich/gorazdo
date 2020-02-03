@@ -43,21 +43,7 @@ const theme = {
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
   },
-  space: [
-    '0',
-    '4px',
-    '8px',
-    '16px',
-    '24px',
-    '32px',
-    '40px',
-    '48px',
-    '64px',
-    '80px',
-    '96px',
-    '112px',
-    '128px',
-  ],
+  space: [0, 6, 12, 18, 24, 30, 36, 42, 48, 60],
 };
 
 export default theme;

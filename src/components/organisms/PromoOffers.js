@@ -3,6 +3,7 @@ import Box from '../atoms/Box';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import data from './data';
+import { color, variant } from 'styled-system';
 
 const dataList = data.map(item => ({
   ...item,
@@ -31,9 +32,6 @@ const AllFeatures = styled.div`
 
 const List = styled.div`
   min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   background: rgba(0, 0, 0, 0.4);
 `;
 
@@ -68,18 +66,20 @@ const PromoOffer = props => {
   );
 };
 
-const StyledMiniCardWrapper = styled.div`
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const StyledMiniCardWrapper = styled('div')(
+  variant({
+    scale: 'cards',
+    variants: {
+      // magic
+      unit1: {},
+    },
+  })
+);
 const StyledMiniCard = styled.div`
-  background-color: #fbab7e;
+  /* background-color: #fbab7e;
   background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
   background-color: #8ec5fc;
-  background-image: linear-gradient(-30deg, #8ec5fc 0%, #e0c3fc 100%);
+  background-image: linear-gradient(-30deg, #8ec5fc 0%, #e0c3fc 100%); */
 
   width: 240px;
   position: relative;
@@ -111,7 +111,7 @@ const StyledId = styled.span`
 const MiniCard = props => {
   const { albumId, id, title, url, thumbnailUrl, index } = props;
   return (
-    <StyledMiniCardWrapper>
+    <StyledMiniCardWrapper variant={`unit${albumId}`}>
       <StyledMiniCard>
         <p>{title}</p>
         {Number.isInteger(index) && <StyledIndex>{index + 1}</StyledIndex>}
