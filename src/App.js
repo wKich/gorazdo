@@ -12,6 +12,7 @@ import dark from './styles/themes/dark';
 import typography from './utils/typography';
 import PromoOffers from './components/organisms/PromoOffers';
 import { ThemeProvider } from 'styled-components';
+import WelcomeTitle from './components/organisms/WelcomeTitle';
 
 function App() {
   useEffect(() => {
@@ -51,6 +52,7 @@ function App() {
           <Blurry>
             <h2>some text</h2>
           </Blurry>
+          <WelcomeTitle />
           <PromoOffers />
           <Box wrap>
             <Blurry>

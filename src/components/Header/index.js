@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
-import styled from "styled-components";
-import { MdMenu } from "react-icons/md";
-import Box from "../atoms/Box";
+import React, { useRef } from 'react';
+import styled from 'styled-components';
+import { MdMenu } from 'react-icons/md';
+import Box from '../atoms/Box';
+import WelcomeTitle from '../organisms/WelcomeTitle';
 
 const FixedHeader = styled.header`
   position: fixed;
