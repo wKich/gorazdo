@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import data from './data';
 import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
+import ServiceCard from './ServiceCard';
 
 const dataList = data.map(item => ({
   ...item,
@@ -157,7 +158,7 @@ const PromoOffer = props => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <MiniCard {...dataObj[id]} index={index} />
+                      <ServiceCard data={dataObj[id]} index={index} />
                     </div>
                   )}
                 </Draggable>
@@ -268,7 +269,7 @@ const PromoOffers = props => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <MiniCard {...dataObj[id]} />
+                        <ServiceCard data={dataObj[id]} />
                       </div>
                     )}
                   </Draggable>

@@ -1,13 +1,10 @@
 /* eslint-disable no-undef */
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Blurry from './components/atoms/Blurry';
 import Header from './components/Header';
 import Box from './components/atoms/Box';
 import Image from './components/Image';
 import Card from './components/organisms/Card';
-import { Helmet } from 'react-helmet';
 import { TypographyStyle, GoogleFont } from 'react-typography';
 import dark from './styles/themes/dark';
 // Best practice is to have a typography module
