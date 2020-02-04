@@ -33,6 +33,9 @@ const words = [
   'Barbershop💈',
   'Kapsalon💇',
   'Startup🚀',
+  'Store🏪',
+  'Business💼',
+  'Studio🎨',
 ];
 const delay = 2;
 
