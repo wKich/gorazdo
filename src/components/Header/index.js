@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { MdMenu } from 'react-icons/md';
 import Box from '../atoms/Box';
-import WelcomeTitle from '../organisms/WelcomeTitle';
+import Switch from 'react-switch';
 
 const FixedHeader = styled.header`
   position: fixed;
@@ -30,7 +30,7 @@ const MenuButton = styled.button`
 const HeaderPlaceholder = styled.div`
   height: 5em;
 `;
-const Header = ({ children }) => {
+const Header = ({ children, onSwitchTheme, themeName }) => {
   return (
     <>
       <HeaderPlaceholder />
@@ -49,7 +49,9 @@ const Header = ({ children }) => {
           <Box>Design</Box>
           <Box>for</Box>
           <Box>you</Box>
-          <Box></Box>
+          <Box>
+            <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
+          </Box>
         </Box>
       </FixedHeader>
     </>

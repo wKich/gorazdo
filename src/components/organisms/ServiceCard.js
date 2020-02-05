@@ -11,6 +11,10 @@ const IconButton = styled.button`
   border: none;
   color: white;
   border-radius: ${getStyle('radii', 2)};
+  /* custom */
+  position: absolute;
+  top: ${getStyle('space', 2)};
+  right: ${getStyle('space', 2)};
 `;
 
 const Wrapper = styled.div`
@@ -20,7 +24,7 @@ const Wrapper = styled.div`
 
 const Inner = styled.div`
   background-color: ${getStyle('colors', 'card')};
-  color: white;
+  color: ${getStyle('colors', 'font')};
   border-radius: ${getStyle('radii', 2)};
   padding: ${getStyle('space', 3)};
 `;
@@ -33,11 +37,11 @@ const StyledCanvas = styled.canvas`
 const ServiceCard = props => {
   const { index, data, onClose } = props;
   const { albumId, id, title, url, thumbnailUrl } = data;
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const ctx = canvasRef.current.getContext('2d');
-    canvas(ctx);
-  }, []);
+  // const canvasRef = useRef(null);
+  // useEffect(() => {
+  //   const ctx = canvasRef.current.getContext('2d');
+  //   canvas(ctx);
+  // }, []);
   return (
     <Wrapper>
       <Inner>
@@ -47,7 +51,7 @@ const ServiceCard = props => {
       <IconButton onClick={onClose} title="Close">
         <MdCancel />
       </IconButton>
-      <StyledCanvas ref={canvasRef} />
+      {/* <StyledCanvas ref={canvasRef} /> */}
     </Wrapper>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Blurry from './components/atoms/Blurry';
 import Header from './components/Header';
 import Box from './components/atoms/Box';
@@ -7,14 +7,27 @@ import Image from './components/Image';
 import Card from './components/organisms/Card';
 import { TypographyStyle, GoogleFont } from 'react-typography';
 import dark from './styles/themes/dark';
+import white from './styles/themes/white';
 // Best practice is to have a typography module
 // where you define your theme.
 import typography from './utils/typography';
 import PromoOffers from './components/organisms/PromoOffers';
 import { ThemeProvider } from 'styled-components';
 import WelcomeTitle from './components/organisms/WelcomeTitle';
+import GlobalStyle from './components/GlobalStyle';
+
+const themes = { dark, white };
 
 function App() {
+  const [currentThemeName, setThemeName] = useState('dark');
+
+  const handleSwitch = () => {
+    if (currentThemeName === 'dark') {
+      setThemeName('white');
+    } else {
+      setThemeName('dark');
+    }
+  };
   useEffect(() => {
     document.addEventListener('DOMContentLoaded', function() {
       // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
@@ -43,11 +56,13 @@ function App() {
     });
   }, []);
   return (
-    <ThemeProvider theme={dark}>
+    <ThemeProvider theme={themes[currentThemeName]}>
       <div className="App">
+        <GlobalStyle />
         <TypographyStyle typography={typography} />
         <GoogleFont typography={typography} />
-        <Header />
+
+        <Header onSwitchTheme={handleSwitch} themeName={currentThemeName} />
         <header className="App-header">
           <Blurry>
             <h2>some text</h2>

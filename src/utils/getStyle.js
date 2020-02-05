@@ -1,5 +1,4 @@
 const getStyle = (...params) => props => {
-  console.log(params, props);
   const [key, value] = params;
   try {
     const result = props.theme[key][value];
