@@ -11,12 +11,12 @@ const roll = keyframes`
     opacity: 1;
 	  transform: translate3d(0,0%,0);
   }
-  20% {
+  12% {
     opacity: 1;
     transform: translate3d(0,0%,0);
     visibility: visible;
   }
-  21% {
+  13% {
     opacity: 0;
     transform: translate3d(0,55%,0);
     visibility: hidden;
@@ -37,6 +37,7 @@ const words = [
   'Business💼',
   'Studio🎨',
 ];
+
 const delay = 2;
 
 const Word = styled.span`
