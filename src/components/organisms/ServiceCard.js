@@ -5,12 +5,19 @@ import canvas from '../../canvas';
 import { MdCancel } from 'react-icons/md';
 
 const IconButton = styled.button`
-  width: ${getStyle('sizes', 3)};
-  height: ${getStyle('sizes', 3)};
+  width: ${getStyle('sizes', 2)};
+  height: ${getStyle('sizes', 2)};
   background-color: transparent;
   border: none;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   border-radius: ${getStyle('radii', 2)};
+  &:focus {
+    outline: none;
+  }
   /* custom */
   position: absolute;
   top: ${getStyle('space', 2)};
@@ -48,9 +55,11 @@ const ServiceCard = props => {
         <h4>{title.slice(0, 14)}</h4>
         <p>{title}</p>
       </Inner>
-      <IconButton onClick={onClose} title="Close">
-        <MdCancel />
-      </IconButton>
+      {onClose && (
+        <IconButton onClick={onClose} title="Remove">
+          <MdCancel />
+        </IconButton>
+      )}
       {/* <StyledCanvas ref={canvasRef} /> */}
     </Wrapper>
   );

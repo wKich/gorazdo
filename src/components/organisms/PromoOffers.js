@@ -6,6 +6,7 @@ import data from './data';
 import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
 import ServiceCard from './ServiceCard';
+import ServiceHeader from './Services/ServiceHeader';
 
 const dataList = data.map(item => ({
   ...item,
@@ -16,12 +17,6 @@ const dataObj = dataList.reduce((acc, item) => {
   acc[item.id] = item;
   return acc;
 }, {});
-
-const Header = styled(Box)`
-  padding: 2rem;
-  border-radius: 1rem 1rem 0 0;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-`;
 
 const AllFeatures = styled.div`
   position: fixed;
@@ -140,10 +135,7 @@ const PromoOffer = props => {
     <Droppable droppableId={props.id}>
       {(provided, snapshot) => (
         <Box column>
-          <Header>
-            <code>[{props.id}]</code>
-            {props.label}
-          </Header>
+          <ServiceHeader title={props.label} />
           <div ref={provided.innerRef}>
             <Ribbon
               isDraggingOver={snapshot.isDraggingOver}
