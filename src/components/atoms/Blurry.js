@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { useInView } from "react-intersection-observer";
-import styled, { css } from "styled-components";
+import React from 'react';
+import { useInView } from 'react-intersection-observer';
+import styled, { css } from 'styled-components';
 
 const StyledDiv = styled.div`
   padding: 20px;
@@ -10,13 +10,13 @@ const getShift = props => {
   if (props.inView) {
     return null;
   }
-  if (props.position === "top") {
+  if (props.position === 'top') {
     return css`
       transform: translateY(20px);
       box-shadow: 0 0 5px red;
     `;
   }
-  if (props.position === "bottom") {
+  if (props.position === 'bottom') {
     return css`
       transform: translateY(-20px);
       box-shadow: 0 0 5px blue;
@@ -27,7 +27,7 @@ const Blur = styled.div`
   transition: all 600ms;
   will-change: filter;
   transform-style: preserve-3d;
-  filter: blur(${props => (props.inView ? 0 : "10px")});
+  filter: blur(${props => (props.inView ? 0 : '10px')});
 `;
 
 const Rotate = styled.div`
@@ -37,10 +37,11 @@ const Rotate = styled.div`
 `;
 
 const Blurry = ({ children }) => {
+  // eslint-disable-next-line no-unused-vars
   const [ref, inView, entry] = useInView({
     /* Optional options */
     threshold: 0.2,
-    rootMargin: "-20% 0px"
+    rootMargin: '-20% 0px',
   });
 
   let position = null;

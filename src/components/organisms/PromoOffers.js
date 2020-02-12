@@ -7,6 +7,7 @@ import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
 import ServiceCard from './ServiceCard';
 import ServiceHeader from './Services/ServiceHeader';
+import { useServices } from '../../hooks';
 
 const dataList = data.map(item => ({
   ...item,
@@ -33,26 +34,6 @@ const StyledDiv = styled.div`
   ${layout};
   ${space};
   ${border};
-`;
-const StyledIndex = styled.span`
-  position: absolute;
-  right: 0;
-  top: 0;
-`;
-
-const StyledId = styled.span`
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  background-color: white;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  border-radius: 3px;
-  font-size: 0.5em;
-  font-weight: bold;
-  justify-content: center;
 `;
 
 const Ribbon = props => {
@@ -81,20 +62,6 @@ const Icon = styled(Box)`
   top: 0;
   font-size: 3em;
 `;
-
-const MiniCard = props => {
-  const { albumId, id, title, url, thumbnailUrl, index } = props;
-  return (
-    <StyledDiv p="3" position="relative">
-      <StyledDiv bg="card" borderRadius="3" color="white" p="3">
-        <h4>{title.slice(0, 14)}</h4>
-        <p>{title}</p>
-        {Number.isInteger(index) && <StyledIndex>{index + 1}</StyledIndex>}
-        {<StyledId>{id}</StyledId>}
-      </StyledDiv>
-    </StyledDiv>
-  );
-};
 
 const insertAtIndex = (arr, index, item) => {
   const shallowCopy = [...arr];
@@ -173,6 +140,9 @@ const PromoOffers = props => {
     l: [],
     xl: [],
   });
+
+  const [payload, loading, error] = useServices();
+  console.log({ payload, loading, error });
   const onBeforeCapture = e => {
     console.log('onBeforeCapture', e);
     /*...*/
