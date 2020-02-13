@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState, useReducer, useMemo } from 'react';
 
 const useFirebase = () => {
   const [firebaseInstance, setFirebaseInstance] = useState(null);
@@ -47,14 +47,13 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useFirestoreRef = ref => {
+const useFirestoreGet = ref => {
   const [aborted, setAborted] = useState(false);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     loading: false,
     error: null,
     payload: null,
   });
-
   useEffect(() => {
     if (ref) {
       fetchData({ ref, dispatch, aborted });
@@ -62,20 +61,28 @@ const useFirestoreRef = ref => {
     return () => {
       setAborted(true);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aborted, ref ? ref.path : ref]);
+  }, [aborted, ref]);
 
   return [state.payload, state.loading, state.error];
 };
 
-const useServices = (locale = 'en-GB') => {
+const useServices = (locale = 'en') => {
   const firebase = useFirebase();
-  const ref = firebase ? firebase.firestore().collection('services') : null;
+  const ref = useMemo(
+    () =>
+      firebase
+        ? firebase
+            .firestore()
+            .collection('services')
+            .where('locale', '==', locale)
+        : null,
+    [firebase, locale]
+  );
 
-  return useFirestoreRef(ref);
+  return useFirestoreGet(ref);
 };
 
-export { useServices };
+export { useServices, useFirestoreGet };
 
 const fetchData = async ({ aborted, dispatch, ref }) => {
   dispatch({
