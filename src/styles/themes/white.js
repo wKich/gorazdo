@@ -4,6 +4,7 @@ const variants = {
   colors: {
     paper: '#f4f4f4',
     card: 'white',
+    scrollbarThumb: '#999',
     font: 'black',
   },
   buttons: {

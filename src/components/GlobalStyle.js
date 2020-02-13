@@ -36,6 +36,18 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
 
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,.1);
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.75em;
+    background-color: rgba(0,0,0,.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${getStyle('colors', 'scrollbarThumb')};
+  }
 `;
 
 export default GlobalStyle;

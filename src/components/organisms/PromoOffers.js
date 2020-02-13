@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Box from '../atoms/Box';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import data from './data';
 import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
 import ServiceCard from './ServiceCard';
 import ServiceHeader from './Services/ServiceHeader';
 import { useServices } from '../../hooks';
-
-const dataList = data.map(item => ({
-  ...item,
-  id: `id${item.id}`,
-}));
-
-const dataObj = dataList.reduce((acc, item) => {
-  acc[item.id] = item;
-  return acc;
-}, {});
+import getStyle from '../../utils/getStyle';
 
 const AllFeatures = styled.div`
   position: fixed;
@@ -25,6 +15,8 @@ const AllFeatures = styled.div`
   top: 0;
   z-index: 100;
   bottom: 0;
+  width: ${getStyle('sizes', 16)};
+  background-color: ${getStyle('colors', 'paper')};
   overflow-y: auto;
 `;
 
@@ -34,6 +26,12 @@ const StyledDiv = styled.div`
   ${layout};
   ${space};
   ${border};
+`;
+
+const StyledRibbon = styled.div`
+  position: relative;
+  width: 100%;
+  padding: ${getStyle('space', 2)} 0;
 `;
 
 const Ribbon = props => {
@@ -49,10 +47,10 @@ const Ribbon = props => {
     }
   }
   return (
-    <StyledDiv position="relative">
+    <StyledRibbon>
       <Placeholder opacity={opacity} />
-      <Box column minHeight={8} width="20vw" bg="paper" {...props} />
-    </StyledDiv>
+      <div {...props} />
+    </StyledRibbon>
   );
 };
 
@@ -117,7 +115,7 @@ const PromoOffer = props => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <ServiceCard data={dataObj[id]} index={index} />
+                      <ServiceCard data={props.docsMap[id]} index={index} />
                     </div>
                   )}
                 </Draggable>
@@ -133,16 +131,42 @@ const PromoOffer = props => {
 
 const PromoOffers = props => {
   const [isDragStarted, setDragStarted] = useState(false);
+  const [querySnapshot, loading, error] = useServices();
+  const docsArray = useMemo(
+    () =>
+      querySnapshot
+        ? querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        : [],
+    [querySnapshot]
+  );
+
+  const docsMap = useMemo(
+    () =>
+      docsArray.reduce((acc, item) => {
+        acc[item.id] = item;
+        return acc;
+      }, {}),
+    [docsArray]
+  );
+
   const [promo, setPromo] = useState({
-    market: dataList.map(item => item.id),
+    market: [],
     s: [],
     m: [],
     l: [],
     xl: [],
   });
 
-  const [payload, loading, error] = useServices();
-  console.log({ payload, loading, error });
+  useEffect(() => {
+    setPromo(prevState => ({
+      ...prevState,
+      market: docsArray.map(item => item.id),
+    }));
+  }, [docsArray]);
+
   const onBeforeCapture = e => {
     console.log('onBeforeCapture', e);
     /*...*/
@@ -184,6 +208,7 @@ const PromoOffers = props => {
       });
     }
   };
+  console.log(promo.market);
   return (
     <DragDropContext
       onDragEnd={handleDragEnd}
@@ -197,24 +222,28 @@ const PromoOffers = props => {
           isDragStarted={isDragStarted}
           id="s"
           label="Basic"
+          docsMap={docsMap}
           ids={promo.s}
         />
         <PromoOffer
           isDragStarted={isDragStarted}
           id="m"
           label="Recommended"
+          docsMap={docsMap}
           ids={promo.m}
         />
         <PromoOffer
           isDragStarted={isDragStarted}
           id="l"
           label="Pro"
+          docsMap={docsMap}
           ids={promo.l}
         />
         <PromoOffer
           isDragStarted={isDragStarted}
           id="xl"
           label="Exclusive"
+          docsMap={docsMap}
           ids={promo.xl}
         />
       </Box>
@@ -231,7 +260,7 @@ const PromoOffers = props => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <ServiceCard data={dataObj[id]} />
+                        <ServiceCard data={docsMap[id]} />
                       </div>
                     )}
                   </Draggable>

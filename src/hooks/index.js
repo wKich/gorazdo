@@ -1,12 +1,27 @@
 import { useEffect, useState, useReducer, useMemo } from 'react';
 
+const getFirebaseAppInstance = () => {
+  const isFirebaseAvailable = typeof firebase !== 'undefined';
+  if (isFirebaseAvailable) {
+    // eslint-disable-next-line no-undef
+    const app = firebase.app();
+    return app;
+  }
+  return null;
+};
+
 const useFirebase = () => {
-  const [firebaseInstance, setFirebaseInstance] = useState(null);
+  // eslint-disable-next-line no-undef
+  const defaultValue = getFirebaseAppInstance();
+  const [firebaseInstance, setFirebaseInstance] = useState(defaultValue);
   useEffect(() => {
-    document.addEventListener('DOMContentLoaded', function() {
+    const app = getFirebaseAppInstance();
+    if (app) {
+      setFirebaseInstance(app);
+    }
+    document.addEventListener('DOMContentLoaded', event => {
       try {
-        // eslint-disable-next-line no-undef
-        let app = firebase.app();
+        const app = getFirebaseAppInstance();
         let features = ['auth', 'firestore', 'messaging', 'storage'].filter(
           feature => typeof app[feature] === 'function'
         );
@@ -62,7 +77,6 @@ const useFirestoreGet = ref => {
       setAborted(true);
     };
   }, [aborted, ref]);
-
   return [state.payload, state.loading, state.error];
 };
 
@@ -71,11 +85,9 @@ const useServices = (locale = 'en') => {
   const ref = useMemo(
     () =>
       firebase
-        ? firebase
-            .firestore()
-            .collection('services')
-            .where('locale', '==', locale)
-        : null,
+        ? firebase.firestore().collection('services')
+        : // .where('locale', '==', locale)
+          null,
     [firebase, locale]
   );
 

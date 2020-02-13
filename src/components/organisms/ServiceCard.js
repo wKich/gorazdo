@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import getStyle from '../../utils/getStyle';
-import canvas from '../../canvas';
 import { MdCancel } from 'react-icons/md';
 
 const IconButton = styled.button`
@@ -25,7 +24,7 @@ const IconButton = styled.button`
 `;
 
 const Wrapper = styled.div`
-  padding: ${getStyle('space', 3)};
+  padding: ${getStyle('space', 1)} ${getStyle('space', 3)};
   position: relative;
 `;
 
@@ -36,31 +35,21 @@ const Inner = styled.div`
   padding: ${getStyle('space', 3)};
 `;
 
-const StyledCanvas = styled.canvas`
-  width: ${getStyle('sizes', 6)};
-  height: ${getStyle('sizes', 3)};
-`;
-
 const ServiceCard = props => {
-  const { index, data, onClose } = props;
-  const { albumId, id, title, url, thumbnailUrl } = data;
-  // const canvasRef = useRef(null);
-  // useEffect(() => {
-  //   const ctx = canvasRef.current.getContext('2d');
-  //   canvas(ctx);
-  // }, []);
+  const { data, onClose } = props;
+  const { title, description } = data;
+  const displayDescription = description || `A nice description for "${title}"`;
   return (
     <Wrapper>
       <Inner>
-        <h4>{title.slice(0, 14)}</h4>
-        <p>{title}</p>
+        <h4>{title}</h4>
+        <p>{displayDescription}</p>
       </Inner>
       {onClose && (
         <IconButton onClick={onClose} title="Remove">
           <MdCancel />
         </IconButton>
       )}
-      {/* <StyledCanvas ref={canvasRef} /> */}
     </Wrapper>
   );
 };
