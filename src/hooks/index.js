@@ -62,7 +62,8 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useFirestoreGet = ref => {
+const useFirestoreGet = fn => {
+  const ref = useFirestoreRef(fn);
   const [aborted, setAborted] = useState(false);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     loading: false,
@@ -81,17 +82,18 @@ const useFirestoreGet = ref => {
 };
 
 const useServices = (locale = 'en') => {
-  const firebase = useFirebase();
-  const ref = useMemo(
-    () =>
-      firebase
-        ? firebase.firestore().collection('services')
-        : // .where('locale', '==', locale)
-          null,
-    [firebase, locale]
-  );
+  // .where('locale', '==', locale)
 
-  return useFirestoreGet(ref);
+  return useFirestoreGet(db => db.collection('services'));
+};
+
+const useFirestoreRef = fn => {
+  const firebase = useFirebase();
+  const ref = useMemo(() => (firebase ? fn(firebase.firestore()) : null), [
+    firebase,
+    fn,
+  ]);
+  return ref;
 };
 
 export { useServices, useFirestoreGet };

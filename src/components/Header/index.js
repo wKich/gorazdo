@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MdMenu } from 'react-icons/md';
 import Box from '../atoms/Box';
 import Switch from 'react-switch';
+import { Link } from 'react-router-dom';
 
 const FixedHeader = styled.header`
   position: fixed;
@@ -41,13 +42,17 @@ const Header = ({ children, onSwitchTheme, themeName }) => {
               <Box alignItems="center">
                 <MdMenu />
                 &nbsp;
-                <span>Gorazdo</span>
-                <b>studio</b>
+                <Link to="/">
+                  <span>Gorazdo</span>
+                  <b>studio</b>
+                </Link>
               </Box>
             </MenuButton>
           </Box>
           <Box>Design</Box>
-          <Box>for</Box>
+          <Box>
+            <Link to="/projects">Projects</Link>
+          </Box>
           <Box>you</Box>
           <Box>
             <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
