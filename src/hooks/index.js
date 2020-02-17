@@ -1,13 +1,18 @@
 import { useEffect, useState, useReducer, useMemo } from 'react';
 
 const getFirebaseAppInstance = () => {
-  const isFirebaseAvailable = typeof firebase !== 'undefined';
-  if (isFirebaseAvailable) {
-    // eslint-disable-next-line no-undef
-    const app = firebase.app();
-    return app;
+  try {
+    const isFirebaseAvailable = typeof firebase !== 'undefined';
+    if (isFirebaseAvailable) {
+      // eslint-disable-next-line no-undef
+      const app = firebase.app();
+      return app;
+    }
+    return null;
+  } catch (error) {
+    console.error(error.message);
+    return null;
   }
-  return null;
 };
 
 const useFirebase = () => {
@@ -66,7 +71,7 @@ const useFirestoreGet = fn => {
   const ref = useFirestoreRef(fn);
   const [aborted, setAborted] = useState(false);
   const [state, dispatch] = useReducer(dataFetchReducer, {
-    loading: false,
+    loading: true,
     error: null,
     payload: null,
   });
@@ -83,8 +88,18 @@ const useFirestoreGet = fn => {
 
 const useServices = (locale = 'en') => {
   // .where('locale', '==', locale)
+  const memoFn = useMemo(() => {
+    return db => db.collection('services');
+  }, []);
+  return useFirestoreGet(memoFn);
+};
 
-  return useFirestoreGet(db => db.collection('services'));
+const useProjects = () => {
+  const fn = useMemo(
+    () => db => db.collection('projects').where('privacy', '==', 'public'),
+    []
+  );
+  return useFirestoreGet(fn);
 };
 
 const useFirestoreRef = fn => {
@@ -96,7 +111,7 @@ const useFirestoreRef = fn => {
   return ref;
 };
 
-export { useServices, useFirestoreGet };
+export { useServices, useProjects, useFirestoreGet };
 
 const fetchData = async ({ aborted, dispatch, ref }) => {
   dispatch({

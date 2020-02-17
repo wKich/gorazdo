@@ -24,21 +24,6 @@ function App() {
       setThemeName('dark');
     }
   };
-  useEffect(() => {
-    document.addEventListener('DOMContentLoaded', function() {
-      try {
-        let app = firebase.app();
-        let features = ['auth', 'firestore', 'messaging', 'storage'].filter(
-          feature => typeof app[feature] === 'function'
-        );
-        console.log(`Firebase SDK loaded with ${features.join(', ')}`);
-      } catch (e) {
-        console.error(e);
-        document.getElementById('load').innerHTML =
-          'Error loading the Firebase SDK, check the console.';
-      }
-    });
-  }, []);
   return (
     <Router>
       <ThemeProvider theme={themes[currentThemeName]}>
