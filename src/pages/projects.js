@@ -11,6 +11,11 @@ import { useProjects } from '../hooks';
 import styled from 'styled-components';
 import getStyle from '../utils/getStyle';
 
+const DELAY = '1000ms';
+const DOUBLED_DELAY = '2000ms';
+const HOVER_DURATION = '600ms';
+const RETURN_DURATION = '1000ms';
+
 const byPublishedDate = (docA, docB) =>
   docB.get('published_on').seconds - docA.get('published_on').seconds;
 
@@ -30,29 +35,35 @@ const Content = styled.div`
   );
 `;
 
+const BackgroundWrapper = styled.div`
+  transform: scale(1.4);
+  position: absolute;
+  left: 0%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* transition: transform ${RETURN_DURATION} ease-out ${DOUBLED_DELAY}; */
+`;
+
 const Background = styled('div').attrs(props => ({
   style: {
     backgroundImage: `url(${props.cover})`,
     transform: `translateX(${-props.x}px) translateY(${-props.y}px)`,
   },
 }))`
-  position: absolute;
-  left: 0%;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  height: 100%;
+  width: 100%;
   will-change: transform;
   border-radius: ${getStyle('space', 1)};
-  /* transform-origin: 20% center; */
-  /* transform: scale(1.2); */
-  background-size: 100%;
+  background-size: 140%;
   background-repeat: no-repeat;
-  transition: 2s 1s transform ease-out;
+  transition: transform ${HOVER_DURATION} ease-out;
+  /* transition: transform ${RETURN_DURATION} ease-out ${DELAY}; */
 `;
 
 const InnerWrapper = styled.div.attrs(props => ({
   style: {
-    transform: `rotateY(${props.x / 2}deg) rotateX(${-props.y / 2}deg)`,
+    transform: `rotateY(${props.x * 0.5}deg) rotateX(${-props.y * 0.5}deg)`,
   },
 }))`
   border-radius: ${getStyle('space', 3)};
@@ -60,9 +71,10 @@ const InnerWrapper = styled.div.attrs(props => ({
   overflow: hidden;
   position: relative;
   height: 100%;
-  transition: 2s 1s transform ease-out;
+  /* transition: transform ${RETURN_DURATION} ease-out ${DELAY}; */
+  transition: transform ${HOVER_DURATION} ease-out;
   :hover {
-    transition: 300ms transform ease-out;
+    transition: transform ${HOVER_DURATION} ease-out;
   }
   ::after {
     top: ${getStyle('space', 1)};
@@ -75,9 +87,6 @@ const InnerWrapper = styled.div.attrs(props => ({
     content: '';
     position: absolute;
   }
-  :hover ${Background} {
-    transition: 300ms transform ease-out;
-  }
 `;
 
 const Wrapper = styled.div`
@@ -85,8 +94,13 @@ const Wrapper = styled.div`
   height: ${getStyle('sizes', 10)};
   perspective: 500px;
   transform-style: preserve-3d;
+  transition: transform ${HOVER_DURATION} ease-out;
   :hover ${Background} {
-    /* transform: scale(1.2) rotate3d(0, 1, 0, 7deg) translateX(-6px); */
+    transition: transform ${HOVER_DURATION} ease-out;
+  }
+  :hover ${BackgroundWrapper} {
+    transform: scale(1.4);
+    transition: transform ${HOVER_DURATION} ease-out;
   }
 `;
 
@@ -97,14 +111,11 @@ const getRelated = (cursor, dimension) =>
 const ProjectCard = ({ doc }) => {
   const [bound, setBound] = useState({});
   const ref = useRef(null);
-  const { current } = ref;
   useEffect(() => {
-    console.log(ref);
     if (ref.current) {
       setBound(ref.current.getBoundingClientRect());
     }
   }, [ref]);
-  console.log(bound);
   const [{ mouseX, mouseY }, setMouse] = useState(defaultMouseState);
   const [mouseLeaveTimer, setMouseLeaveTimer] = useState(null);
   const debouncedMouseX = useDebounce(mouseX, 10);
@@ -148,11 +159,13 @@ const ProjectCard = ({ doc }) => {
           X{debouncedMouseX} Y{debouncedMouseY}
           <h2>{doc.get('name')}</h2>
         </Content>
-        <Background
-          cover={doc.get('covers.808') || doc.get('covers.max_808')}
-          x={debouncedMouseX}
-          y={debouncedMouseY}
-        />
+        <BackgroundWrapper>
+          <Background
+            cover={doc.get('covers.808') || doc.get('covers.max_808')}
+            x={debouncedMouseX}
+            y={debouncedMouseY}
+          />
+        </BackgroundWrapper>
       </InnerWrapper>
     </Wrapper>
   );
