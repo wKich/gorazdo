@@ -1,15 +1,18 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import getStyle from '../../utils/getStyle';
 
-const StyledButton = styled.button`
-  border: 2px solid black;
-  padding: 0 0.5em;
+const Button = styled.button`
+  background-color: transparent;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  margin: 0;
-  background: none;
+  border-radius: ${getStyle('radii', 2)};
+  &:focus {
+    outline: none;
+  }
 `;
-
-const Button = props => {
-  return <StyledButton {...props} />;
-};
 export default Button;

@@ -10,6 +10,7 @@ import Blurry from '../components/atoms/Blurry';
 import { useProjects } from '../hooks';
 import styled from 'styled-components';
 import getStyle from '../utils/getStyle';
+import Button from '../components/atoms/Button';
 
 const DELAY = '1000ms';
 const DOUBLED_DELAY = '2000ms';
@@ -36,7 +37,7 @@ const Content = styled.div`
 `;
 
 const BackgroundWrapper = styled.div`
-  transform: scale(1.4);
+  transform: scale(1.5);
   position: absolute;
   left: 0%;
   top: 0;
@@ -89,6 +90,14 @@ const InnerWrapper = styled.div.attrs(props => ({
   }
 `;
 
+const StyledButton = styled(Button)`
+  position: absolute;
+  right: ${getStyle('space', 6)};
+  background-color: ${getStyle('colors', 'font', color => color.alpha(0.5))};
+  color: ${getStyle('colors', 'paper')};
+  bottom: ${getStyle('space', 6)};
+`;
+
 const Wrapper = styled.div`
   width: ${getStyle('sizes', 15)};
   height: ${getStyle('sizes', 10)};
@@ -99,8 +108,11 @@ const Wrapper = styled.div`
     transition: transform ${HOVER_DURATION} ease-out;
   }
   :hover ${BackgroundWrapper} {
-    transform: scale(1.4);
+    transform: scale(1.5);
     transition: transform ${HOVER_DURATION} ease-out;
+  }
+  :hover ${StyledButton} {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   }
 `;
 
@@ -158,6 +170,7 @@ const ProjectCard = ({ doc }) => {
         <Content>
           X{debouncedMouseX} Y{debouncedMouseY}
           <h2>{doc.get('name')}</h2>
+          <StyledButton>Open</StyledButton>
         </Content>
         <BackgroundWrapper>
           <Background
