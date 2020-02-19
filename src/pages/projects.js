@@ -73,7 +73,10 @@ const Background = styled('div').attrs(props => ({
 */
 
 const toDegree = (value, maxDegree = 45, range = [-50, 50]) => {
-  // const [min, max] =
+  const [min, max] = range;
+  const pool = Math.abs(min) + Math.abs(max);
+
+  return (value / pool) * 45 * 2;
 };
 
 const InnerWrapper = styled.div.attrs(props => ({
