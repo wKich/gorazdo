@@ -17,6 +17,9 @@ const DOUBLED_DELAY = '2000ms';
 const HOVER_DURATION = '600ms';
 const RETURN_DURATION = '1000ms';
 
+const CARD_WIDTH = 15;
+const CARD_GAP = 0.5;
+
 const byPublishedDate = (docA, docB) =>
   docB.get('published_on').seconds - docA.get('published_on').seconds;
 
@@ -62,6 +65,17 @@ const Background = styled('div').attrs(props => ({
   /* transition: transform ${RETURN_DURATION} ease-out ${DELAY}; */
 `;
 
+/*
+
+-50 -- 50
+
+
+*/
+
+const toDegree = (value, maxDegree = 45, range = [-50, 50]) => {
+  // const [min, max] =
+};
+
 const InnerWrapper = styled.div.attrs(props => ({
   style: {
     transform: `rotateY(${props.x * 0.5}deg) rotateX(${-props.y * 0.5}deg)`,
@@ -90,16 +104,41 @@ const InnerWrapper = styled.div.attrs(props => ({
   }
 `;
 
-const StyledButton = styled(Button)`
+const ButtonTransformer = styled('div').attrs(props => ({
+  style: {
+    transform: `translateX(${-props.x * 0.4}px) translateY(${-props.y *
+      0.4}px)`,
+  },
+}))`
   position: absolute;
   right: ${getStyle('space', 6)};
-  background-color: ${getStyle('colors', 'font', color => color.alpha(0.5))};
-  color: ${getStyle('colors', 'paper')};
   bottom: ${getStyle('space', 6)};
+  transition: transform ${HOVER_DURATION} ease-out;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: ${getStyle('colors', 'font', color => color.alpha(0.2))};
+  border: 2px solid ${getStyle('colors', 'font', color => color.alpha(0.6))};
+  color: ${getStyle('colors', 'font')};
+  padding: ${getStyle('space', 1)};
+  width: ${getStyle('sizes', 4)};
+  transition: all ${HOVER_DURATION} ease-out;
+  :hover {
+    background-color: ${getStyle('colors', 'font', color => color.alpha(0.4))};
+    /* box-shadow: 0 0 40px rgba(0, 0, 0, 0.6) !important; */
+  }
+  &:active {
+    transition: all 75ms;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0) !important;
+    transform: translateY(2px) scale(0.95);
+  }
+`;
+const StyledHeader = styled('h2')`
+  padding-right: ${getStyle('sizes', 5)};
 `;
 
 const Wrapper = styled.div`
-  width: ${getStyle('sizes', 15)};
+  width: ${getStyle('sizes', CARD_WIDTH)};
   height: ${getStyle('sizes', 10)};
   perspective: 500px;
   transform-style: preserve-3d;
@@ -112,7 +151,8 @@ const Wrapper = styled.div`
     transition: transform ${HOVER_DURATION} ease-out;
   }
   :hover ${StyledButton} {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    /* transform: scale(1); */
   }
 `;
 
@@ -169,8 +209,10 @@ const ProjectCard = ({ doc }) => {
       <InnerWrapper x={debouncedMouseX} y={debouncedMouseY}>
         <Content>
           X{debouncedMouseX} Y{debouncedMouseY}
-          <h2>{doc.get('name')}</h2>
-          <StyledButton>Open</StyledButton>
+          <StyledHeader>{doc.get('name')}</StyledHeader>
+          <ButtonTransformer x={debouncedMouseX} y={debouncedMouseY}>
+            <StyledButton>Open</StyledButton>
+          </ButtonTransformer>
         </Content>
         <BackgroundWrapper>
           <Background
@@ -184,6 +226,20 @@ const ProjectCard = ({ doc }) => {
   );
 };
 
+const TheGrid = styled('div')`
+  display: grid;
+  grid-column-gap: ${getStyle('sizes', CARD_GAP)};
+  overflow: hidden;
+  grid-row-gap: ${getStyle('sizes', CARD_GAP)};
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(${getStyle('sizes', CARD_WIDTH + 2 * CARD_GAP)}, 1fr)
+  );
+`;
+
+const TheItem = styled('div')`
+  place-self: center;
+`;
 const Projects = props => {
   const [projectsSnapshot, loading, error] = useProjects();
   console.log(projectsSnapshot, loading, error);
@@ -194,13 +250,15 @@ const Projects = props => {
     return 'error';
   }
   return (
-    <div>
+    <TheGrid>
       {projectsSnapshot.docs.sort(byPublishedDate).map(doc => (
-        <Blurry key={doc.id}>
-          <ProjectCard doc={doc} />
-        </Blurry>
+        <TheItem key={doc.id}>
+          <Blurry>
+            <ProjectCard doc={doc} />
+          </Blurry>
+        </TheItem>
       ))}
-    </div>
+    </TheGrid>
   );
 };
 
