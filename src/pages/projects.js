@@ -65,23 +65,19 @@ const Background = styled('div').attrs(props => ({
   /* transition: transform ${RETURN_DURATION} ease-out ${DELAY}; */
 `;
 
-/*
-
--50 -- 50
-
-
-*/
-
-const toDegree = (value, maxDegree = 45, range = [-50, 50]) => {
+const toDegree = (value, maxAbsoluteValue = 45, range = [-50, 50]) => {
   const [min, max] = range;
   const pool = Math.abs(min) + Math.abs(max);
 
-  return (value / pool) * 45 * 2;
+  return (value / pool) * maxAbsoluteValue * 2;
 };
 
 const InnerWrapper = styled.div.attrs(props => ({
   style: {
-    transform: `rotateY(${props.x * 0.5}deg) rotateX(${-props.y * 0.5}deg)`,
+    transform: `rotateY(${toDegree(props.x, 20)}deg) rotateX(${-toDegree(
+      props.y,
+      20
+    )}deg)`,
   },
 }))`
   border-radius: ${getStyle('space', 3)};
