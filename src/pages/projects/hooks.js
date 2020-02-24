@@ -34,7 +34,6 @@ export const useMouseTrack = ({ ref, defaultX = 0, defaultY = 0 }) => {
   });
   const [mouseLeaveTimer, setMouseLeaveTimer] = useState(null);
   const [bound, setBound] = useState({});
-
   useEffect(() => {
     if (ref.current) {
       setBound(ref.current.getBoundingClientRect());
@@ -43,11 +42,11 @@ export const useMouseTrack = ({ ref, defaultX = 0, defaultY = 0 }) => {
 
   const handleMouseMove = useCallback(
     event => {
-      const { pageX, pageY } = event;
+      const { clientX, clientY } = event;
       const { x, y, height, width } = bound;
       setMouse(state => {
-        const newMouseX = getRelated(pageX - x, width);
-        const newMouseY = getRelated(pageY - y, height);
+        const newMouseX = getRelated(clientX - x, width);
+        const newMouseY = getRelated(clientY - y, height);
         return {
           mouseX: newMouseX,
           mouseY: newMouseY,
@@ -58,8 +57,9 @@ export const useMouseTrack = ({ ref, defaultX = 0, defaultY = 0 }) => {
   );
 
   const handleMouseEnter = useCallback(() => {
+    setBound(ref.current.getBoundingClientRect());
     clearTimeout(mouseLeaveTimer);
-  }, [mouseLeaveTimer]);
+  }, [mouseLeaveTimer, ref]);
 
   const handleMouseLeave = useCallback(() => {
     const timer = setTimeout(setMouse, 1000, {

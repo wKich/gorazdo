@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import getStyle from '../../../utils/getStyle';
 import Button from '../../../components/atoms/Button';
