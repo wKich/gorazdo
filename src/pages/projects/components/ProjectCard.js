@@ -1,42 +1,19 @@
-import React, {
-  useMemo,
-  useCallback,
-  useState,
-  useRef,
-  useEffect,
-} from 'react';
-import Card from '../components/organisms/Card';
-import Blurry from '../components/atoms/Blurry';
-import { useProjects } from '../hooks';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import getStyle from '../utils/getStyle';
-import Button from '../components/atoms/Button';
-
-const DELAY = '1000ms';
-const DOUBLED_DELAY = '2000ms';
-const HOVER_DURATION = '600ms';
-const RETURN_DURATION = '1000ms';
-
-const CARD_WIDTH = 15;
-const CARD_GAP = 0.5;
-
-const byPublishedDate = (docA, docB) =>
-  docB.get('published_on').seconds - docA.get('published_on').seconds;
-
-const Content = styled.div`
-  border-radius: ${getStyle('space', 3)};
-  padding: ${getStyle('space', 3)};
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: flex-end;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0.5)
-  );
+import getStyle from '../../../utils/getStyle';
+import Button from '../../../components/atoms/Button';
+import {
+  HOVER_DURATION,
+  CARD_WIDTH,
+  RETURN_DURATION,
+  DELAY,
+  DOUBLED_DELAY,
+} from '../constants';
+import { Content } from './Content';
+import { MdOpenInNew } from 'react-icons/md';
+import { useDebounce, useMouseTrack } from '../hooks';
+const StyledHeader = styled('h2')`
+  padding-right: ${getStyle('sizes', 5)};
 `;
 
 const BackgroundWrapper = styled.div`
@@ -132,10 +109,6 @@ const StyledButton = styled(Button)`
     transform: translateY(2px) scale(0.95);
   }
 `;
-const StyledHeader = styled('h2')`
-  padding-right: ${getStyle('sizes', 5)};
-`;
-
 const Wrapper = styled.div`
   width: ${getStyle('sizes', CARD_WIDTH)};
   height: ${getStyle('sizes', 10)};
@@ -155,47 +128,20 @@ const Wrapper = styled.div`
   }
 `;
 
-const defaultMouseState = { mouseY: 0, mouseX: 0 };
-
-const getRelated = (cursor, dimension) =>
-  Math.round(((cursor - dimension / 2) / dimension) * 100);
-const ProjectCard = ({ doc }) => {
-  const [bound, setBound] = useState({});
+export const ProjectCard = ({ doc }) => {
   const ref = useRef(null);
-  useEffect(() => {
-    if (ref.current) {
-      setBound(ref.current.getBoundingClientRect());
-    }
-  }, [ref]);
-  const [{ mouseX, mouseY }, setMouse] = useState(defaultMouseState);
-  const [mouseLeaveTimer, setMouseLeaveTimer] = useState(null);
+  const {
+    handleMouseMove,
+    handleMouseEnter,
+    handleMouseLeave,
+    mouseX,
+    mouseY,
+  } = useMouseTrack({ ref });
+
   const debouncedMouseX = useDebounce(mouseX, 10);
   const debouncedMouseY = useDebounce(mouseY, 10);
 
-  const handleMouseEnter = useCallback(() => {
-    clearTimeout(mouseLeaveTimer);
-  }, [mouseLeaveTimer]);
-
-  const handleMouseLeave = useCallback(() => {
-    const timer = setTimeout(setMouse, 1000, defaultMouseState);
-    setMouseLeaveTimer(timer);
-  }, []);
-
-  const handleMouseMove = useCallback(
-    event => {
-      const { pageX, pageY } = event;
-      const { x, y, height, width } = bound;
-      setMouse(state => {
-        const newMouseX = getRelated(pageX - x, width);
-        const newMouseY = getRelated(pageY - y, height);
-        return {
-          mouseX: newMouseX,
-          mouseY: newMouseY,
-        };
-      });
-    },
-    [bound]
-  );
+  const title = `Open ${doc.get('name')} at Behance`;
   return (
     <Wrapper
       ref={ref}
@@ -210,7 +156,15 @@ const ProjectCard = ({ doc }) => {
           X{debouncedMouseX} Y{debouncedMouseY}
           <StyledHeader>{doc.get('name')}</StyledHeader>
           <ButtonTransformer x={debouncedMouseX} y={debouncedMouseY}>
-            <StyledButton>Open</StyledButton>
+            <StyledButton
+              as="a"
+              href={doc.get('url')}
+              target="_blank"
+              title={title}
+            >
+              Open&nbsp;
+              <MdOpenInNew />
+            </StyledButton>
           </ButtonTransformer>
         </Content>
         <BackgroundWrapper>
@@ -224,65 +178,3 @@ const ProjectCard = ({ doc }) => {
     </Wrapper>
   );
 };
-
-const TheGrid = styled('div')`
-  display: grid;
-  grid-column-gap: ${getStyle('sizes', CARD_GAP)};
-  overflow: hidden;
-  grid-row-gap: ${getStyle('sizes', CARD_GAP)};
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(${getStyle('sizes', CARD_WIDTH + 2 * CARD_GAP)}, 1fr)
-  );
-`;
-
-const TheItem = styled('div')`
-  place-self: center;
-`;
-const Projects = props => {
-  const [projectsSnapshot, loading, error] = useProjects();
-  console.log(projectsSnapshot, loading, error);
-  if (loading) {
-    return 'loading...';
-  }
-  if (error) {
-    return 'error';
-  }
-  return (
-    <TheGrid>
-      {projectsSnapshot.docs.sort(byPublishedDate).map(doc => (
-        <TheItem key={doc.id}>
-          <Blurry>
-            <ProjectCard doc={doc} />
-          </Blurry>
-        </TheItem>
-      ))}
-    </TheGrid>
-  );
-};
-
-export { Projects };
-
-function useDebounce(value, delay) {
-  // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(
-    () => {
-      // Update debounced value after delay
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-
-      // Cancel the timeout if value changes (also on delay change or unmount)
-      // This is how we prevent debounced value from updating if value is changed ...
-      // .. within the delay period. Timeout gets cleared and restarted.
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    [value, delay] // Only re-call effect if value or delay changes
-  );
-
-  return debouncedValue;
-}
