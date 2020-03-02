@@ -2,12 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Box from '../atoms/Box';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
 import ServiceCard from './ServiceCard';
-import ServiceHeader from './Services/ServiceHeader';
 import { useServices } from '../../hooks';
 import getStyle from '../../utils/getStyle';
+import { Ribbon } from '../molecules/Ribbon';
+import { PromoServicesPane } from './Services/PromoServicesPane';
 
 const AllFeatures = styled.div`
   position: fixed;
@@ -20,113 +20,10 @@ const AllFeatures = styled.div`
   overflow-y: auto;
 `;
 
-const StyledDiv = styled.div`
-  ${color};
-  ${position};
-  ${layout};
-  ${space};
-  ${border};
-`;
-
-const StyledRibbon = styled.div`
-  position: relative;
-  width: 100%;
-  padding: ${getStyle('space', 2)} 0;
-`;
-
-const Ribbon = props => {
-  const { isEmpty, isDraggingOver, isDragStarted } = props;
-  let opacity = 0;
-  if (isEmpty) {
-    if (isDragStarted) {
-      opacity = 0.2;
-    }
-
-    if (isDraggingOver) {
-      opacity = 1;
-    }
-  }
-  return (
-    <StyledRibbon>
-      <Placeholder opacity={opacity} />
-      <div {...props} />
-    </StyledRibbon>
-  );
-};
-
-const Icon = styled(Box)`
-  ${position};
-  left: 0;
-  top: 0;
-  font-size: 3em;
-`;
-
 const insertAtIndex = (arr, index, item) => {
   const shallowCopy = [...arr];
   shallowCopy.splice(index, 0, item);
   return shallowCopy;
-};
-
-const StyledPlaceholder = styled(StyledDiv)`
-  transition: opacity 200ms;
-`;
-
-const Placeholder = props => {
-  return (
-    <StyledPlaceholder
-      position="absolute"
-      p={5}
-      width="100%"
-      opacity={props.opacity}
-    >
-      <StyledDiv borderRadius="3" height="5" color="#999" border="dropbox">
-        {props.children}
-        <Icon
-          position="absolute"
-          fullHeight
-          fullWidth
-          alignItems="center"
-          justify="center"
-        >
-          <MdAdd />
-        </Icon>
-      </StyledDiv>
-    </StyledPlaceholder>
-  );
-};
-
-const PromoOffer = props => {
-  return (
-    <Droppable droppableId={props.id}>
-      {(provided, snapshot) => (
-        <Box column>
-          <ServiceHeader title={props.label} />
-          <div ref={provided.innerRef}>
-            <Ribbon
-              isDraggingOver={snapshot.isDraggingOver}
-              isEmpty={props.ids.length === 0}
-              isDragStarted={props.isDragStarted}
-            >
-              {props.ids.map((id, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <ServiceCard data={props.docsMap[id]} index={index} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </Ribbon>
-          </div>
-        </Box>
-      )}
-    </Droppable>
-  );
 };
 
 const PromoOffers = props => {
@@ -145,10 +42,10 @@ const PromoOffers = props => {
 
   const docsMap = useMemo(
     () =>
-      docsArray.reduce((acc, item) => {
-        acc[item.id] = item;
-        return acc;
-      }, {}),
+      docsArray.reduce((map, item) => {
+        map.set(item.id, item);
+        return map;
+      }, new Map()),
     [docsArray]
   );
 
@@ -218,30 +115,33 @@ const PromoOffers = props => {
       onDragUpdate={onDragUpdate}
     >
       <Box>
-        <PromoOffer
+        <PromoServicesPane
           isDragStarted={isDragStarted}
-          id="s"
+          serviceCode="s"
+          slots={3}
           label="Basic"
           docsMap={docsMap}
           ids={promo.s}
         />
-        <PromoOffer
+        <PromoServicesPane
           isDragStarted={isDragStarted}
-          id="m"
+          serviceCode="m"
+          slots={4}
           label="Recommended"
           docsMap={docsMap}
           ids={promo.m}
         />
-        <PromoOffer
+        <PromoServicesPane
           isDragStarted={isDragStarted}
-          id="l"
+          serviceCode="l"
           label="Pro"
+          slots={5}
           docsMap={docsMap}
           ids={promo.l}
         />
-        <PromoOffer
+        <PromoServicesPane
           isDragStarted={isDragStarted}
-          id="xl"
+          serviceCode="xl"
           label="Exclusive"
           docsMap={docsMap}
           ids={promo.xl}
@@ -260,7 +160,7 @@ const PromoOffers = props => {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                       >
-                        <ServiceCard data={docsMap[id]} />
+                        <ServiceCard data={docsMap.get(id)} />
                       </div>
                     )}
                   </Draggable>
