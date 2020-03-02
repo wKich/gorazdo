@@ -7,7 +7,8 @@ import getStyle from '../../utils/getStyle';
 
 const StyledRibbon = styled.div`
   position: relative;
-  width: 100%;
+  width: ${getStyle('sizes', 16)};
+  background-color: ${getStyle('colors', 'paper')};
   padding: ${getStyle('space', 2)} 0;
 `;
 
