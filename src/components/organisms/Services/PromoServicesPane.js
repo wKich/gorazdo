@@ -11,11 +11,11 @@ const Wrapper = styled('div')`
   margin: ${getStyle('space', 2)};
   padding: ${getStyle('space', 2)};
   border-radius: ${getStyle('space', 3)};
-  background-color: ${getStyle('colors', 'paper', color => color.lighten(0.2))};
+  background-color: ${getStyle('colors', 'pane')};
 `;
 
 export const PromoServicesPane = props => {
-  const { docsMap, ids, slots, serviceCode } = props;
+  const { docsMap, ids, label, slots, serviceCode } = props;
 
   return (
     <Wrapper>
@@ -27,6 +27,8 @@ export const PromoServicesPane = props => {
               <Ribbon
                 isDraggingOver={snapshot.isDraggingOver}
                 isEmpty={props.ids.length === 0}
+                slots={slots}
+                label={label}
                 isDragStarted={props.isDragStarted}
               >
                 {props.ids.map((id, index) => (

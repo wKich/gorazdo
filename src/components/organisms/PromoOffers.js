@@ -114,7 +114,7 @@ const PromoOffers = props => {
       onDragStart={onDragStart}
       onDragUpdate={onDragUpdate}
     >
-      <Box>
+      <Box alignItems="flex-start">
         <PromoServicesPane
           isDragStarted={isDragStarted}
           serviceCode="s"
@@ -142,6 +142,7 @@ const PromoOffers = props => {
         <PromoServicesPane
           isDragStarted={isDragStarted}
           serviceCode="xl"
+          slots={6}
           label="Exclusive"
           docsMap={docsMap}
           ids={promo.xl}

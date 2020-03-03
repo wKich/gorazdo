@@ -22,11 +22,11 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     box-sizing: border-box;
+    background-color: ${getStyle('colors', 'paper')};
   }
 
   html > body {
     /* overrides Typography.js default coloring */
-    background-color: ${getStyle('colors', 'paper')};
     color: ${getStyle('colors', 'font')};
   }
 

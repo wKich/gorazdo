@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import getStyle from '../../../utils/getStyle';
 import Button from '../../atoms/Button';
@@ -24,19 +24,17 @@ const Header = styled.div`
 `;
 
 const Korting = styled.div`
-  width: ${getStyle('sizes', 4)};
+  width: ${getStyle('sizes', 3)};
   padding: ${getStyle('space', 1)} ${getStyle('space', 3)};
   transform-origin: left center;
   position: absolute;
   border-radius: ${getStyle('sizes', 4)};
   right: 0;
-  top: 0;
-  color: white;
+  text-align: center;
+  bottom: 100%;
+  color: ${props => (props.active ? 'white' : 'rgba(255,255,255,.4)')};
   font-weight: bold;
-  transform: rotate(-15deg);
   filter: ${props => (props.active ? 'grayscale(0%)' : 'grayscale(80%)')};
-  opacity: ${props => (props.active ? 1 : 0.5)};
-  text-decoration: ${props => (props.active ? 'none' : 'strike-through')};
 `;
 
 const KortingParagraph = styled('p')`
@@ -47,20 +45,20 @@ const KortingParagraph = styled('p')`
 
 const Slots = ({ slots, korting, ids }) => {
   const isKortingApplied = ids.length >= slots;
-  if (!slots) {
-    return (
-      <KortingParagraph>
-        Call us, we'll calculate your personal discount!
-      </KortingParagraph>
-    );
-  }
-  if (isKortingApplied) {
-    return <KortingParagraph>Your {korting}% discount is on!</KortingParagraph>;
-  }
+  const text = useMemo(() => {
+    if (!slots) {
+      return "Call us, we'll calculate your personal discount!";
+    }
+    if (isKortingApplied) {
+      return `Your ${korting}% discount is on!`;
+    }
+    return `To get ${korting}% discount. Pick ${slots} cards to this promo-offer`;
+  }, [slots, isKortingApplied, korting]);
+
   return (
-    <KortingParagraph>
-      To get {korting}% discount. Pick <b>{slots} cards</b> to this promo-offer
-    </KortingParagraph>
+    <>
+      <KortingParagraph>{text}</KortingParagraph>
+    </>
   );
 };
 

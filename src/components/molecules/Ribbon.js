@@ -8,13 +8,15 @@ import getStyle from '../../utils/getStyle';
 const StyledRibbon = styled.div`
   position: relative;
   width: ${getStyle('sizes', 16)};
-  background-color: ${getStyle('colors', 'paper')};
   padding: ${getStyle('space', 2)} 0;
+  outline: 1px solid #fff;
+  min-height: ${props => getStyle('sizes', props.slots * 4)(props)};
 `;
 
 export const Ribbon = props => {
-  const { isEmpty, isDraggingOver, isDragStarted } = props;
+  const { isEmpty, label, isDraggingOver, isDragStarted, slots } = props;
   let opacity = 0;
+  console.log({ label, slots });
   if (isEmpty) {
     if (isDragStarted) {
       opacity = 0.2;
@@ -25,7 +27,7 @@ export const Ribbon = props => {
     }
   }
   return (
-    <StyledRibbon>
+    <StyledRibbon slots={slots || 1}>
       <Placeholder opacity={opacity} />
       <div {...props} />
     </StyledRibbon>
