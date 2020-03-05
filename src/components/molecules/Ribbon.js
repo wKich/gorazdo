@@ -15,7 +15,6 @@ const StyledRibbon = styled.div`
 export const Ribbon = props => {
   const { isEmpty, label, isDraggingOver, isDragStarted, slots } = props;
   let opacity = 0;
-  console.log({ label, slots });
   if (isEmpty) {
     if (isDragStarted) {
       opacity = 0.2;
@@ -50,6 +49,7 @@ const StyledDiv = styled.div`
 
 const StyledPlaceholder = styled(StyledDiv)`
   transition: opacity 200ms;
+  bottom: 0;
 `;
 
 const Placeholder = props => {

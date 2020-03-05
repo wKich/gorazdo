@@ -105,6 +105,12 @@ const PromoOffers = props => {
       });
     }
   };
+  const handleRemove = ({ draggableId, droppableId }) => {
+    setPromo({
+      ...promo,
+      [droppableId]: promo[droppableId].filter(id => id !== draggableId),
+    });
+  };
   console.log(promo.market);
   return (
     <DragDropContext
@@ -120,12 +126,14 @@ const PromoOffers = props => {
           serviceCode="s"
           slots={3}
           label="Basic"
+          remove={handleRemove}
           docsMap={docsMap}
           ids={promo.s}
         />
         <PromoServicesPane
           isDragStarted={isDragStarted}
           serviceCode="m"
+          remove={handleRemove}
           slots={4}
           label="Recommended"
           docsMap={docsMap}
@@ -135,6 +143,7 @@ const PromoOffers = props => {
           isDragStarted={isDragStarted}
           serviceCode="l"
           label="Pro"
+          remove={handleRemove}
           slots={5}
           docsMap={docsMap}
           ids={promo.l}
@@ -142,6 +151,7 @@ const PromoOffers = props => {
         <PromoServicesPane
           isDragStarted={isDragStarted}
           serviceCode="xl"
+          remove={handleRemove}
           slots={6}
           label="Exclusive"
           docsMap={docsMap}

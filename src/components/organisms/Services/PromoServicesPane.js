@@ -15,7 +15,7 @@ const Wrapper = styled('div')`
 `;
 
 export const PromoServicesPane = props => {
-  const { docsMap, ids, label, slots, serviceCode } = props;
+  const { docsMap, ids, label, slots, serviceCode, remove } = props;
 
   return (
     <Wrapper>
@@ -42,6 +42,12 @@ export const PromoServicesPane = props => {
                         <ServiceCard
                           data={props.docsMap.get(id)}
                           index={index}
+                          onClose={() =>
+                            remove({
+                              draggableId: id,
+                              droppableId: serviceCode,
+                            })
+                          }
                         />
                       </div>
                     )}
