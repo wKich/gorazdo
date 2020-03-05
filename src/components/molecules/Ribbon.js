@@ -8,7 +8,6 @@ import getStyle from '../../utils/getStyle';
 const StyledRibbon = styled.div`
   position: relative;
   width: ${getStyle('sizes', 16)};
-  padding: ${getStyle('space', 2)} 0;
   outline: 1px solid #fff;
   min-height: ${props => getStyle('sizes', props.slots * 4)(props)};
 `;
