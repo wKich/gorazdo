@@ -1,25 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import getStyle from '../../../utils/getStyle';
+import Button from '../../atoms/Button';
 
 const Header = styled.div`
   padding: 2rem;
   border-radius: 1rem 1rem 0 0;
   border: 1px solid rgba(0, 0, 0, 0.3);
-`;
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: ${getStyle('radii', 2)};
-  &:focus {
-    outline: none;
-  }
+  background: ${getStyle('colors', 'card')};
 `;
 
 const ServiceHeader = props => {

@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "color": "^3.1.2",
+    "firebase-admin": "^8.9.2",
     "react": "^16.12.0",
     "react-beautiful-dnd": "^12.2.0",
     "react-dom": "^16.12.0",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "http-proxy-middleware": "^0.20.0",
+    "node-fetch": "^2.6.0",
     "npm-run-all": "^4.1.5"
   }
 }

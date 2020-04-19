@@ -36,6 +36,10 @@ const Header = ({ children, onSwitchTheme, themeName }) => {
       <HeaderPlaceholder />
       <FixedHeader>
         <Box fullHeight justify="space-between" alignItems="center">
+          <h1>Gorazdo.studio</h1>
+          <a href="mailto:tomova.design@gmail.com">Contact us</a>
+        </Box>
+        {/* <Box fullHeight justify="space-between" alignItems="center">
           <Box>
             <MenuButton>
               <Box alignItems="center">
@@ -52,7 +56,7 @@ const Header = ({ children, onSwitchTheme, themeName }) => {
           <Box>
             <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
           </Box>
-        </Box>
+        </Box> */}
       </FixedHeader>
     </>
   );
