@@ -1,5 +1,5 @@
 import Color from 'color';
-const getStyle = (...params) => props => {
+const getStyle = (...params) => (props) => {
   const [key, value, postProcessor] = params;
 
   try {

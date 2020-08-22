@@ -28,14 +28,15 @@ const roll = keyframes`
 `;
 
 const words = [
-  'Eetcafé☕',
-  'Cafe🍽️',
-  'Barbershop💈',
-  'Kapsalon💇',
   'Startup🚀',
-  'Store🏪',
-  'Business💼',
   'Studio🎨',
+  'Restaurant🍽️',
+  'Barbershop💈',
+  'Store🏪',
+  // 'Kapsalon💇',
+  // 'Eetcafé☕',
+  'Cafe☕',
+  'Business💼',
 ];
 
 const delay = 2;
@@ -47,7 +48,7 @@ const Word = styled.span`
   white-space: nowrap;
   bottom: 0;
   overflow: hidden;
-  animation: ${props =>
+  animation: ${(props) =>
     css`
       ${roll} ${props.length * delay}s linear infinite 0s
     `};
@@ -57,7 +58,7 @@ const WordContainer = styled.span`
   position: relative;
 `;
 
-const Roller = props => {
+const Roller = (props) => {
   return (
     <WordContainer>
       {words.map((word, index, arr) => (
@@ -84,7 +85,7 @@ const Hello = styled.h2`
   line-height: 3em;
   display: flex;
 `;
-const WelcomeTitle = props => {
+const WelcomeTitle = (props) => {
   return (
     <Center>
       <Hello>
@@ -92,7 +93,6 @@ const WelcomeTitle = props => {
         <Roller />
       </Hello>
       <h2>Wow. What's there?</h2>
-      <h2>Special limited offers</h2>
     </Center>
   );
 };

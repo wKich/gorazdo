@@ -22,11 +22,11 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     box-sizing: border-box;
+    background-color: ${getStyle('colors', 'paper')};
   }
 
   html > body {
     /* overrides Typography.js default coloring */
-    background-color: ${getStyle('colors', 'paper')};
     color: ${getStyle('colors', 'font')};
   }
 
@@ -47,6 +47,14 @@ const GlobalStyle = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb {
     background-color: ${getStyle('colors', 'scrollbarThumb')};
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(127,127,127,0.4);
+    :hover {
+      border-bottom-color: ${getStyle('colors', 'font')}
+    }
   }
 `;
 

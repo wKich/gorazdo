@@ -30,8 +30,4 @@ const StyledButton = styled.button`
     )};
   }
 `;
-
-const Button = props => {
-  return <StyledButton {...props} />;
-};
-export default Button;
+export default StyledButton;

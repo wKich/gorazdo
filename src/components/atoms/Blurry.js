@@ -41,7 +41,7 @@ const Blurry = ({ children }) => {
   const [ref, inView, entry] = useInView({
     /* Optional options */
     threshold: 0.2,
-    rootMargin: '-20% 0px',
+    rootMargin: '-120px 0px',
   });
 
   let position = null;

@@ -1,13 +1,18 @@
 import { useEffect, useState, useReducer, useMemo } from 'react';
 
 const getFirebaseAppInstance = () => {
-  const isFirebaseAvailable = typeof firebase !== 'undefined';
-  if (isFirebaseAvailable) {
-    // eslint-disable-next-line no-undef
-    const app = firebase.app();
-    return app;
+  try {
+    const isFirebaseAvailable = typeof firebase !== 'undefined';
+    if (isFirebaseAvailable) {
+      // eslint-disable-next-line no-undef
+      const app = firebase.app();
+      return app;
+    }
+    return null;
+  } catch (error) {
+    console.error(error.message);
+    return null;
   }
-  return null;
 };
 
 const useFirebase = () => {
@@ -62,10 +67,11 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useFirestoreGet = ref => {
+const useFirestoreGet = fn => {
+  const ref = useFirestoreRef(fn);
   const [aborted, setAborted] = useState(false);
   const [state, dispatch] = useReducer(dataFetchReducer, {
-    loading: false,
+    loading: true,
     error: null,
     payload: null,
   });
@@ -81,20 +87,31 @@ const useFirestoreGet = ref => {
 };
 
 const useServices = (locale = 'en') => {
-  const firebase = useFirebase();
-  const ref = useMemo(
-    () =>
-      firebase
-        ? firebase.firestore().collection('services')
-        : // .where('locale', '==', locale)
-          null,
-    [firebase, locale]
-  );
-
-  return useFirestoreGet(ref);
+  // .where('locale', '==', locale)
+  const memoFn = useMemo(() => {
+    return db => db.collection('services');
+  }, []);
+  return useFirestoreGet(memoFn);
 };
 
-export { useServices, useFirestoreGet };
+const useProjects = () => {
+  const fn = useMemo(
+    () => db => db.collection('projects').where('privacy', '==', 'public'),
+    []
+  );
+  return useFirestoreGet(fn);
+};
+
+const useFirestoreRef = fn => {
+  const firebase = useFirebase();
+  const ref = useMemo(() => (firebase ? fn(firebase.firestore()) : null), [
+    firebase,
+    fn,
+  ]);
+  return ref;
+};
+
+export { useServices, useProjects, useFirestoreGet };
 
 const fetchData = async ({ aborted, dispatch, ref }) => {
   dispatch({
