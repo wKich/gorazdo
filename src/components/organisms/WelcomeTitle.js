@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 
 const roll = keyframes`
@@ -76,6 +76,10 @@ const Roller = (props) => {
 
 const Center = styled.div`
   text-align: center;
+  height: calc(100vh - 5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Hello = styled.h2`
@@ -92,7 +96,6 @@ const WelcomeTitle = (props) => {
         We design things for your&nbsp;
         <Roller />
       </Hello>
-      <h2>Wow. What's there?</h2>
     </Center>
   );
 };

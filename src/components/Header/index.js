@@ -1,76 +1,59 @@
-import React, { useRef } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { MdMenu } from 'react-icons/md';
 import Box from '../atoms/Box';
 import Switch from 'react-switch';
 import { Link } from 'react-router-dom';
+import { LocaleContext } from 'contexts/Locale';
 
 const FixedHeader = styled.header`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 5em;
+  height: 5rem;
   z-index: 10;
   width: 100%;
+  line-height: 5rem;
   font-size: 1.25em;
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const MenuButton = styled.button`
-  padding: 1em;
-  font-size: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
+const StyledTitle = styled('h1')`
+  margin: 0;
 `;
+
 const HeaderPlaceholder = styled.div`
-  height: 5em;
+  height: 5rem;
 `;
 const Header = ({ children, onSwitchTheme, themeName }) => {
   return (
     <>
       <HeaderPlaceholder />
       <FixedHeader>
-        <Box fullHeight justify="space-around" alignItems="center">
-          <h1
-            css={`
-              margin: 0;
-            `}
-          >
+        <Box fullHeight justify="space-around" alignItems="baseline">
+          <StyledTitle>
             <Link to="/projects">Gorazdo.studio</Link>
-          </h1>
-          <a href="mailto:tomova.design@gmail.com">@Contact us</a>
+          </StyledTitle>
+          <span>
+            <a href="mailto:tomova.design@gmail.com">@Contact us</a>
+          </span>
+          <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
+          <LocaleSwitch />
         </Box>
-        {/* <Box fullHeight justify="space-between" alignItems="center">
-          <Box>
-            <MenuButton>
-              <Box alignItems="center">
-                <MdMenu />
-                &nbsp;
-                <Link to="/">
-                  <span>Gorazdo</span>
-                  <b>studio</b>
-                </Link>
-              </Box>
-            </MenuButton>
-          </Box>
-          <Box>Design</Box>
-          <Box>
-            <Link to="/projects">Projects</Link>
-          </Box>
-          <Box>you</Box>
-          <Box>
-            <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
-          </Box>
-        </Box> */}
       </FixedHeader>
     </>
   );
 };
 
+const LocaleSwitch = () => {
+  const [locale, setLocale] = useContext(LocaleContext);
+  const handleSwitchLocale = () => {
+    if (locale === 'en') {
+      setLocale('ru');
+    } else {
+      setLocale('en');
+    }
+  };
+  return <Switch onChange={handleSwitchLocale} checked={locale === 'en'} />;
+};
 export default Header;

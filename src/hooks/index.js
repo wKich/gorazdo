@@ -24,11 +24,11 @@ const useFirebase = () => {
     if (app) {
       setFirebaseInstance(app);
     }
-    document.addEventListener('DOMContentLoaded', event => {
+    document.addEventListener('DOMContentLoaded', (event) => {
       try {
         const app = getFirebaseAppInstance();
         let features = ['auth', 'firestore', 'messaging', 'storage'].filter(
-          feature => typeof app[feature] === 'function'
+          (feature) => typeof app[feature] === 'function'
         );
         setFirebaseInstance(app);
         console.log(`Firebase SDK loaded with ${features.join(', ')}`);
@@ -67,7 +67,7 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-const useFirestoreGet = fn => {
+const useFirestoreGet = (fn) => {
   const ref = useFirestoreRef(fn);
   const [aborted, setAborted] = useState(false);
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -89,20 +89,20 @@ const useFirestoreGet = fn => {
 const useServices = (locale = 'en') => {
   // .where('locale', '==', locale)
   const memoFn = useMemo(() => {
-    return db => db.collection('services');
+    return (db) => db.collection('services');
   }, []);
   return useFirestoreGet(memoFn);
 };
 
 const useProjects = () => {
   const fn = useMemo(
-    () => db => db.collection('projects').where('privacy', '==', 'public'),
+    () => (db) => db.collection('projects').where('privacy', '==', 'public'),
     []
   );
   return useFirestoreGet(fn);
 };
 
-const useFirestoreRef = fn => {
+export const useFirestoreRef = (fn) => {
   const firebase = useFirebase();
   const ref = useMemo(() => (firebase ? fn(firebase.firestore()) : null), [
     firebase,

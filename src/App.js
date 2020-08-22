@@ -12,6 +12,9 @@ import GlobalStyle from './components/GlobalStyle';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home } from './pages/home';
 import { Projects } from './pages/projects';
+import { People } from 'pages/people';
+import { Person } from 'pages/people/person';
+import { LocaleProvider } from 'contexts/Locale';
 const themes = { dark, white };
 
 function App() {
@@ -24,25 +27,34 @@ function App() {
       setThemeName('dark');
     }
   };
+
   return (
     <Router>
-      <ThemeProvider theme={themes[currentThemeName]}>
-        <div className="App">
-          <GlobalStyle />
-          <TypographyStyle typography={typography} />
-          <GoogleFont typography={typography} />
+      <LocaleProvider>
+        <ThemeProvider theme={themes[currentThemeName]}>
+          <div className="App">
+            <GlobalStyle />
+            <TypographyStyle typography={typography} />
+            <GoogleFont typography={typography} />
 
-          <Header onSwitchTheme={handleSwitch} themeName={currentThemeName} />
-          <Switch>
-            <Route path="/projects">
-              <Projects />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </div>
-      </ThemeProvider>
+            <Header onSwitchTheme={handleSwitch} themeName={currentThemeName} />
+            <Switch>
+              <Route path="/projects">
+                <Projects />
+              </Route>
+              <Route path="/people">
+                <People />
+              </Route>
+              <Route path="/people/:name">
+                <Person />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </ThemeProvider>
+      </LocaleProvider>
     </Router>
   );
 }
