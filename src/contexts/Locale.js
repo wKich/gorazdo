@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
+import { useSessionStorageState } from 'hooks/useSessionStorageState';
 
 export const FALLBACK_LOCALE = 'en';
 export const AVAILABLE_LOCALES = ['en', 'ru'];
@@ -20,7 +21,7 @@ const useNavigatorLocale = () => {
 
 export const LocaleProvider = ({ children }) => {
   const defaultLocale = useNavigatorLocale();
-  const [locale, setLocale] = useState(defaultLocale);
+  const [locale, setLocale] = useSessionStorageState(defaultLocale, 'locale');
   return (
     <LocaleContext.Provider value={[locale, setLocale]}>
       {children}

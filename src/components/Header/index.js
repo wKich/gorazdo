@@ -4,6 +4,7 @@ import Box from '../atoms/Box';
 import Switch from 'react-switch';
 import { Link } from 'react-router-dom';
 import { LocaleContext } from 'contexts/Locale';
+import { ThemeContext } from 'contexts/Theme';
 
 const FixedHeader = styled.header`
   position: fixed;
@@ -37,12 +38,17 @@ const Header = ({ children, onSwitchTheme, themeName }) => {
           <span>
             <a href="mailto:tomova.design@gmail.com">@Contact us</a>
           </span>
-          <Switch onChange={onSwitchTheme} checked={themeName === 'dark'} />
+          <ThemeSwitch />
           <LocaleSwitch />
         </Box>
       </FixedHeader>
     </>
   );
+};
+
+const ThemeSwitch = () => {
+  const [themeName, toggleTheme] = useContext(ThemeContext);
+  return <Switch onChange={toggleTheme} checked={themeName === 'dark'} />;
 };
 
 const LocaleSwitch = () => {
