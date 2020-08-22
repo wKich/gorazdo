@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import { TypographyStyle, GoogleFont } from 'react-typography';
 import dark from './styles/themes/dark';
-import white from './styles/themes/white';
+import light from './styles/themes/light';
 // Best practice is to have a typography module
 // where you define your theme.
 import typography from './utils/typography';
@@ -15,14 +15,25 @@ import { Projects } from './pages/projects';
 import { People } from 'pages/people';
 import { Person } from 'pages/people/person';
 import { LocaleProvider } from 'contexts/Locale';
-const themes = { dark, white };
+const themes = { dark, light };
+
+const useDefaultTheme = () => {
+  if (
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  ) {
+    return 'dark';
+  }
+  return 'light';
+};
 
 function App() {
-  const [currentThemeName, setThemeName] = useState('dark');
+  const defaultTheme = useDefaultTheme();
+  const [currentThemeName, setThemeName] = useState(defaultTheme);
 
   const handleSwitch = () => {
     if (currentThemeName === 'dark') {
-      setThemeName('white');
+      setThemeName('light');
     } else {
       setThemeName('dark');
     }

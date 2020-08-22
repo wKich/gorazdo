@@ -14,9 +14,9 @@ const variants = {
   },
 };
 
-const white = {
+const light = {
   ...protoTheme,
   ...variants,
 };
 
-export default white;
+export default light;
