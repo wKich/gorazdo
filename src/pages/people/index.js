@@ -1,8 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirestoreRef } from 'hooks';
 import { Text } from 'components/atoms/Text';
+import { Link } from 'react-router-dom';
 
 export const People = () => {
   const ref = useFirestoreRef((db) => db.collection('people'));
@@ -33,6 +33,9 @@ const PersonCard = ({ doc }) => {
         &nbsp;
         <Text value={lastName} />
       </h3>
+      <Link to={`/people/${doc.get('name')}`}>
+        <Text value={{ en: 'Profile', ru: 'Профиль' }} />
+      </Link>
       <pre>{JSON.stringify(doc.data())}, </pre>
     </div>
   );

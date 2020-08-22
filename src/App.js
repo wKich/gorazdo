@@ -42,7 +42,7 @@ function App() {
               <Route path="/projects">
                 <Projects />
               </Route>
-              <Route path="/people">
+              <Route exact path="/people">
                 <People />
               </Route>
               <Route path="/people/:name">
