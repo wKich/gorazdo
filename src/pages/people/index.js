@@ -3,6 +3,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useFirestoreRef } from 'hooks';
 import { Text } from 'components/atoms/Text';
 import { Link } from 'react-router-dom';
+import { useWhyDidYouUpdate } from 'hooks/useWhyDidYouUpdate';
 
 export const People = () => {
   const ref = useFirestoreRef((db) => db.collection('people'));
@@ -22,16 +23,14 @@ export const People = () => {
   );
 };
 
-const PersonCard = ({ doc }) => {
-  const firstName = doc.get('firstName');
-  const lastName = doc.get('lastName');
-
+const PersonCard = (props) => {
+  const { doc } = props;
   return (
     <div>
       <h3>
-        <Text value={firstName} />
+        <Text doc={doc} path="firstName" />
         &nbsp;
-        <Text value={lastName} />
+        <Text doc={doc} path="lastName" />
       </h3>
       <Link to={`/people/${doc.get('name')}`}>
         <Text value={{ en: 'Profile', ru: 'Профиль' }} />
