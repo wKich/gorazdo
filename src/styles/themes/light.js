@@ -6,6 +6,9 @@ const variants = {
     card: 'white',
     scrollbarThumb: '#999',
     font: 'black',
+    primary: {
+      primary: '#2626a9',
+    },
   },
   buttons: {
     primary: {},

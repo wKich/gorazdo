@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const sessionGet = (key) => {
   return JSON.parse(window.sessionStorage.getItem(key));
@@ -13,9 +13,11 @@ export const useSessionStorageState = (defaultValue, key) => {
   const [state, setState] = useState(stateDefaultValue);
 
   const setSessionStorageState = (value) => {
-    sessionSet(key, value);
     setState(value);
   };
+  useEffect(() => {
+    sessionSet(key, state);
+  }, [key, state]);
 
   return [state, setSessionStorageState];
 };

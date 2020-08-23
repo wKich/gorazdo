@@ -1,5 +1,13 @@
 import { useEffect, useState, useReducer, useMemo } from 'react';
 
+const getFirebase = () => {
+  const isFirebaseAvailable = typeof firebase !== 'undefined';
+  if (isFirebaseAvailable) {
+    return window.firebase;
+  }
+  return null;
+};
+
 const getFirebaseAppInstance = () => {
   try {
     const isFirebaseAvailable = typeof firebase !== 'undefined';
@@ -15,8 +23,7 @@ const getFirebaseAppInstance = () => {
   }
 };
 
-const useFirebase = () => {
-  // eslint-disable-next-line no-undef
+export const useFirebaseApp = () => {
   const defaultValue = getFirebaseAppInstance();
   const [firebaseInstance, setFirebaseInstance] = useState(defaultValue);
   useEffect(() => {
@@ -24,21 +31,36 @@ const useFirebase = () => {
     if (app) {
       setFirebaseInstance(app);
     }
-    document.addEventListener('DOMContentLoaded', (event) => {
+    const callback = (event) => {
       try {
         const app = getFirebaseAppInstance();
-        let features = ['auth', 'firestore', 'messaging', 'storage'].filter(
-          (feature) => typeof app[feature] === 'function'
-        );
+        const features = Array.from(app.container.providers.keys());
         setFirebaseInstance(app);
         console.log(`Firebase SDK loaded with ${features.join(', ')}`);
       } catch (error) {
         console.error(error);
         setFirebaseInstance(null);
       }
-    });
+    };
+    document.addEventListener('DOMContentLoaded', callback);
+    return () => document.removeEventListener('DOMContentLoaded', callback);
   }, []);
   return firebaseInstance;
+};
+
+export const useFirebase = () => {
+  const [firebase, setFirebase] = useState(window.firebase || null);
+  useEffect(() => {
+    if ('firebase' in window) {
+      setFirebase(window.firebase);
+    }
+    const callback = (event) => {
+      setFirebase(window.firebase);
+    };
+    document.addEventListener('DOMContentLoaded', callback);
+    return () => document.removeEventListener('DOMContentLoaded', callback);
+  }, []);
+  return firebase;
 };
 
 const dataFetchReducer = (state, action) => {
@@ -103,7 +125,7 @@ const useProjects = () => {
 };
 
 export const useFirestoreRef = (fn) => {
-  const firebase = useFirebase();
+  const firebase = useFirebaseApp();
   const ref = useMemo(() => (firebase ? fn(firebase.firestore()) : null), [
     firebase,
     fn,

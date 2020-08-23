@@ -26,7 +26,7 @@ const StyledTitle = styled('h1')`
 const HeaderPlaceholder = styled.div`
   height: 5rem;
 `;
-const Header = ({ children, onSwitchTheme, themeName }) => {
+const Header = () => {
   return (
     <>
       <HeaderPlaceholder />
@@ -38,8 +38,10 @@ const Header = ({ children, onSwitchTheme, themeName }) => {
           <span>
             <a href="mailto:tomova.design@gmail.com">@Contact us</a>
           </span>
-          <ThemeSwitch />
-          <LocaleSwitch />
+          <Box fullHeight alignItems="center" alignSelf="flex-end">
+            <ThemeSwitch />
+            <LocaleSwitch />
+          </Box>
         </Box>
       </FixedHeader>
     </>
