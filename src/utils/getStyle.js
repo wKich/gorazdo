@@ -7,7 +7,7 @@ const getStyle = (...params) => (props) => {
     if (key === 'colors' && typeof postProcessor === 'function') {
       return postProcessor(Color(result)).string();
     }
-    if (['space', 'sizes', 'radii'].includes(key)) {
+    if (['space', 'sizes', 'radii', 'lineHeight', 'fontSize'].includes(key)) {
       return `${result}px`;
     }
     return result;
@@ -24,4 +24,15 @@ const getValueByPath = (path, object) => {
     return object[path];
   }
   return path.split('.').reduce((acc, unit) => acc[unit], object);
+};
+
+export const getStyleByProp = (...params) => (props) => {
+  const [key, propName, postProcessor] = params;
+  const result = props.theme[key][props[propName]];
+  if (key === 'colors' && typeof postProcessor === 'function') {
+    return postProcessor(Color(result)).string();
+  }
+  if (['space', 'sizes', 'radii', 'lineHeight', 'fontSize'].includes(key)) {
+    return `${result}px`;
+  }
 };

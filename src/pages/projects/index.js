@@ -5,6 +5,8 @@ import { TheGrid } from './components/TheGrid';
 import { TheItem } from './components/TheItem';
 import { ProjectCard } from './components/ProjectCard';
 import WelcomeTitle from '../../components/organisms/WelcomeTitle';
+import { ThemeProvider } from 'styled-components';
+import dark from 'styles/themes/dark';
 
 const byPublishedDate = (docA, docB) =>
   docB.get('published_on').seconds - docA.get('published_on').seconds;
@@ -45,13 +47,15 @@ const Projects = (props) => {
         Our recent projects!
       </h3>
       <TheGrid>
-        {projectsSnapshot.docs.sort(byPublishedDate).map((doc) => (
-          <TheItem key={doc.id}>
-            <Blurry>
-              <ProjectCard doc={doc} />
-            </Blurry>
-          </TheItem>
-        ))}
+        <ThemeProvider theme={dark}>
+          {projectsSnapshot.docs.sort(byPublishedDate).map((doc) => (
+            <TheItem key={doc.id}>
+              <Blurry>
+                <ProjectCard doc={doc} />
+              </Blurry>
+            </TheItem>
+          ))}
+        </ThemeProvider>
       </TheGrid>
     </>
   );

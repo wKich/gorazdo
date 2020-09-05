@@ -47,8 +47,9 @@ const theme = {
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
   },
-  radii: [0, 3, 6, 12, 18],
-  space: [0, 6, 12, 18, 24, 36, 42, 48, 60, 72, 96],
+  radii: [0, 4, 8, 16, 32, 48],
+  space: [0, 8, 16, 24, 36, 42, 48, 60, 72, 96],
+  unit: 8,
   sizes: {
     0: 0,
     0.5: 12, //  24 * 0.5,
@@ -68,12 +69,44 @@ const theme = {
     19: 24 * 19,
     20: 24 * 20,
   },
+  fontSize: {
+    100: 12,
+    200: 12,
+    300: 16,
+    400: 12,
+    500: 12,
+    600: 12,
+    700: 36,
+    800: 12,
+    900: 12,
+    subtitle: 12,
+    large: 12,
+    medium: 12,
+    normal: 12,
+    small: 12,
+  },
+  lineHeight: {
+    100: 12,
+    200: 12,
+    300: 24,
+    400: 12,
+    500: 12,
+    600: 12,
+    700: 64,
+    800: 12,
+    900: 12,
+    subtitle: 12,
+    large: 12,
+    medium: 12,
+    normal: 12,
+    small: 12,
+  },
 };
 
 export default theme;
 
 function fontStack(fonts) {
   return fonts
-    .map(font => (font.includes(' ') ? `"${font}"` : font))
+    .map((font) => (font.includes(' ') ? `"${font}"` : font))
     .join(', ');
 }

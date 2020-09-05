@@ -18,6 +18,7 @@ const variants = {
 };
 
 const light = {
+  name: 'light',
   ...protoTheme,
   ...variants,
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '../atoms/Box';
 import styled from 'styled-components';
-import { color, layout, space, border, position } from 'styled-system';
 import { MdAdd } from 'react-icons/md';
 import getStyle from '../../utils/getStyle';
 
@@ -9,10 +8,10 @@ const StyledRibbon = styled.div`
   position: relative;
   width: ${getStyle('sizes', 16)};
   outline: 1px solid #fff;
-  min-height: ${props => getStyle('sizes', props.slots * 4)(props)};
+  min-height: ${(props) => getStyle('sizes', props.slots * 4)(props)};
 `;
 
-export const Ribbon = props => {
+export const Ribbon = (props) => {
   const { isEmpty, label, isDraggingOver, isDragStarted, slots } = props;
   let opacity = 0;
   if (isEmpty) {
@@ -52,7 +51,7 @@ const StyledPlaceholder = styled(StyledDiv)`
   bottom: 0;
 `;
 
-const Placeholder = props => {
+const Placeholder = (props) => {
   return (
     <StyledPlaceholder
       position="absolute"

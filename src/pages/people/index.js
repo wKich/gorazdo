@@ -35,7 +35,6 @@ const PersonCard = (props) => {
       <Link to={`/people/${doc.get('name')}`}>
         <Text value={{ en: 'Profile', ru: 'Профиль' }} />
       </Link>
-      <pre>{JSON.stringify(doc.data())}, </pre>
     </div>
   );
 };

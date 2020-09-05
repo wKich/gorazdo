@@ -76,7 +76,7 @@ const Roller = (props) => {
 
 const Center = styled.div`
   text-align: center;
-  height: calc(100vh - 5rem);
+  height: ${(props) => props.fullHeight && 'calc(100vh - 5rem)'};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@ const Hello = styled.h2`
 `;
 const WelcomeTitle = (props) => {
   return (
-    <Center>
+    <Center fullHeight={props.fullHeight}>
       <Hello>
         We design things for your&nbsp;
         <Roller />

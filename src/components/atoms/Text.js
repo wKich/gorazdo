@@ -38,6 +38,13 @@ const SimpleText = (props) => {
 
 export const Text = (props) => {
   if (props.doc) {
+    if (typeof props.doc.get(props.path) !== 'object') {
+      return (
+        <>
+          No <code>{props.path}</code> in <code>{props.doc.id}</code>
+        </>
+      );
+    }
     return <FirebaseText {...props} />;
   }
   return <SimpleText {...props} />;

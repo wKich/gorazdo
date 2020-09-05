@@ -22,7 +22,6 @@
     "react-switch": "^5.0.1",
     "react-typography": "^0.16.19",
     "styled-components": "^5.1.1",
-    "styled-system": "^5.1.5",
     "typography": "^0.16.19",
     "typography-theme-bootstrap": "^0.16.19"
   },
@@ -31,7 +30,8 @@
     "dev:firebase": "firebase serve -p 4000",
     "dev:react": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "firebase deploy --only hosting:gorazdo",
+    "predeploy": "npm run build",
+    "deploy": "cd functions && firebase deploy --only hosting:gorazdo",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

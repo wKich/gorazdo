@@ -114,6 +114,7 @@ const StyledButton = styled(Button)`
 `;
 const Wrapper = styled.div`
   width: ${getStyle('sizes', CARD_WIDTH)};
+  color: ${getStyle('colors', 'font')};
   height: ${getStyle('sizes', 10)};
   perspective: 500px;
   transform-style: preserve-3d;

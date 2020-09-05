@@ -19,6 +19,7 @@ const variants = {
 };
 
 const dark = {
+  name: 'dark',
   ...protoTheme,
   ...variants,
 };
