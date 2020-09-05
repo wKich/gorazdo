@@ -6,7 +6,6 @@ export default {
   component: Typography,
   args: {},
   argTypes: {},
-
   parameters: {
     figma: '147%3A3',
   },
@@ -22,7 +21,7 @@ Subtitle.args = {
 export const Primary = Template.bind({});
 Primary.args = {
   children: 'Typography-1',
-  variant: 300,
+  variant: 'h300',
 };
 
 export const Primary400 = Template.bind({});

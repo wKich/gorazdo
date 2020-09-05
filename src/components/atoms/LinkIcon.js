@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaLink } from 'react-icons/fa';
 import styled from 'styled-components';
+import getStyle from 'utils/getStyle';
 
 export const LinkIcon = (props) => (
   <IconOuter href={props.href} target="_blank">
@@ -11,8 +12,9 @@ export const LinkIcon = (props) => (
 );
 
 const IconInner = styled('div')`
-  height: 40px;
-  border-radius: 8px;
+  height: 100%;
+  width: 50%;
+  border-radius: inherit;
   background: black;
   color: white;
   display: flex;
@@ -22,9 +24,11 @@ const IconInner = styled('div')`
 `;
 
 const IconOuter = styled('a')`
-  width: 80px;
+  display: block;
+  cursor: pointer;
+  height: ${getStyle('sizes', 5)};
+  width: ${getStyle('sizes', 10)};
   border: none;
-  height: 40px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.2);
   &:hover ${IconInner} {

@@ -6,8 +6,8 @@ import getStyle, { getStyleByProp } from 'utils/getStyle';
 const StyledComponent = styled('span')`
   display: block;
   color: ${getStyle('colors', 'font')};
-  font-size: ${getStyleByProp('fontSize', 'variant')};
-  line-height: ${getStyleByProp('lineHeight', 'variant')};
+  font-size: ${getStyleByProp('fontSizes', 'variant')};
+  line-height: ${getStyleByProp('lineHeights', 'variant')};
 `;
 
 export const Typography = ({ component, ...props }) => {
@@ -16,20 +16,21 @@ export const Typography = ({ component, ...props }) => {
 
 Typography.propTypes = {
   variant: PropTypes.oneOf([
-    100,
-    200,
-    300,
-    400,
-    500,
-    600,
-    700,
-    800,
-    900,
+    'title',
     'subtitle',
-    'large',
-    'medium',
-    'normal',
     'small',
+    'normal',
+    'medium',
+    'large',
+    'h100',
+    'h200',
+    'h300',
+    'h400',
+    'h500',
+    'h600',
+    'h700',
+    'h800',
+    'h900',
   ]),
 };
 

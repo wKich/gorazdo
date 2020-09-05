@@ -46,11 +46,6 @@ const withFigma = makeDecorator({
   name: 'withFigma',
   parameterName: 'figma',
   wrapper: (Story, context, componentContext) => {
-    console.log(
-      componentContext.parameters,
-      context.parameters.design,
-      context.parameters.figma
-    );
     if (!context.parameters.design && componentContext.parameters) {
       // no default design parameter and component has a "figma" parameter
       let url = FIGMA_PROJECT_URL;

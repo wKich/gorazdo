@@ -7,7 +7,7 @@ const getStyle = (...params) => (props) => {
     if (key === 'colors' && typeof postProcessor === 'function') {
       return postProcessor(Color(result)).string();
     }
-    if (['space', 'sizes', 'radii', 'lineHeight', 'fontSize'].includes(key)) {
+    if (['space', 'sizes', 'radii', 'lineHeights', 'fontSizes'].includes(key)) {
       return `${result}px`;
     }
     return result;

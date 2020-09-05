@@ -1,3 +1,11 @@
+const gridStep = 8;
+
+const range = (start = 0, end, step = 1) => {
+  return new Array(end).fill(null).map((item, index) => {
+    return start + index + step;
+  });
+};
+
 const theme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
   maxWidths: {
@@ -37,8 +45,6 @@ const theme = {
     1: '1px solid',
     dropbox: '3px dashed',
   },
-  fontSizes: ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px'],
-  radius: ['0', '3px', '6px'],
   shadows: {
     small: '0 1px 1px rgba(27, 31, 35, 0.1)',
     medium: '0 1px 5px rgba(27, 31, 35, 0.15)',
@@ -50,56 +56,43 @@ const theme = {
   radii: [0, 4, 8, 16, 32, 48],
   space: [0, 8, 16, 24, 36, 42, 48, 60, 72, 96],
   unit: 8,
-  sizes: {
-    0: 0,
-    0.5: 12, //  24 * 0.5,
-    1: 24, //  24 * 1,
-    1.5: 36, //  24 * 1.5,
-    2: 48, //  24 * 2,
-    3: 72, //  24 * 3,
-    4: 96, //  24 * 4,
-    5: 120, // 24 * 5,
-    8: 192, // 24 * 8,
-    10: 240, // 24 * 10,
-    12: 24 * 12, // 24 * 10,
-    15: 360, // 24 * 15,
-    16: 24 * 16,
-    17: 24 * 17,
-    18: 24 * 18,
-    19: 24 * 19,
-    20: 24 * 20,
-  },
-  fontSize: {
-    100: 12,
-    200: 12,
-    300: 16,
-    400: 12,
-    500: 12,
-    600: 12,
-    700: 36,
-    800: 12,
-    900: 12,
-    subtitle: 12,
-    large: 12,
-    medium: 12,
+  sizes: [0, 0.5, 1, 1.5].concat(range(2, 20)).reduce((acc, item) => {
+    acc[item] = item * gridStep;
+    return acc;
+  }, {}),
+  fontSizes: {
+    small: 10,
     normal: 12,
-    small: 12,
-  },
-  lineHeight: {
-    100: 12,
-    200: 12,
-    300: 24,
-    400: 12,
-    500: 12,
-    600: 12,
-    700: 64,
-    800: 12,
-    900: 12,
+    medium: 14,
+    large: 16,
     subtitle: 12,
-    large: 12,
-    medium: 12,
-    normal: 12,
+
+    h100: 12,
+    h200: 14,
+    h300: 16,
+    h400: 20,
+    h500: 24,
+    h600: 32,
+    h700: 40,
+    h800: 56,
+    h900: 72,
+  },
+  lineHeights: {
     small: 12,
+    subtitle: 16,
+    normal: 16,
+    medium: 20,
+    large: 24,
+
+    h100: 16,
+    h200: 20,
+    h300: 24,
+    h400: 32,
+    h500: 40,
+    h600: 48,
+    h700: 64,
+    h800: 88,
+    h900: 108,
   },
 };
 
