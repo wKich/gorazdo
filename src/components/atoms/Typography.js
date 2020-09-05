@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import getStyle, { getStyleByProp } from 'utils/getStyle';
 
@@ -13,7 +14,23 @@ export const Typography = ({ component, ...props }) => {
   return <StyledComponent as={component} {...props} />;
 };
 
-Typography.defaultProps = {
-  component: 'span',
-  variant: 900,
+Typography.propTypes = {
+  variant: PropTypes.oneOf([
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    'subtitle',
+    'large',
+    'medium',
+    'normal',
+    'small',
+  ]),
 };
+
+Typography.defaultProps = {};

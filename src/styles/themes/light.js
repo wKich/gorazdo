@@ -19,6 +19,7 @@ const variants = {
 
 const light = {
   name: 'light',
+  // backgroundColor: '#fff', // storybook needs it
   ...protoTheme,
   ...variants,
 };
