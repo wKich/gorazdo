@@ -3,38 +3,10 @@ import { useParams } from 'react-router';
 import { useFirestoreRef } from 'hooks';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Box from 'components/atoms/Box';
-import { Avatar } from 'components/atoms/Avatar';
-import { Typography } from 'components/atoms/Typography';
-import { Text } from 'components/atoms/Text';
 import styled from 'styled-components';
 import getStyle from 'utils/getStyle';
 import { LinkIcon } from 'components/atoms/LinkIcon';
-
-const StyledBox = styled(Box)`
-  padding: ${getStyle('space', 2)};
-  padding-top: ${getStyle('space', 6)};
-`;
-
-const Hgroup = styled('hgroup')`
-  margin-left: ${getStyle('space', 2)};
-`;
-const UserTop = ({ doc }) => {
-  return (
-    <StyledBox>
-      <Avatar url={doc.get('avatar')} />
-      <Hgroup>
-        <Typography variant={700}>
-          <Text doc={doc} path="firstName" />
-          &nbsp;
-          <Text doc={doc} path="lastName" />
-        </Typography>
-        <Typography variant={300}>
-          <Text doc={doc} path="profession" />
-        </Typography>
-      </Hgroup>
-    </StyledBox>
-  );
-};
+import { UserTop } from 'components/molecules/UserTop';
 
 export const Person = () => {
   const { name } = useParams();

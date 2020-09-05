@@ -5,6 +5,8 @@ import getStyle, { getStyleByProp } from 'utils/getStyle';
 
 const StyledComponent = styled('span')`
   display: block;
+  margin: 0;
+  padding: 0;
   color: ${getStyle('colors', 'font')};
   font-size: ${getStyleByProp('fontSizes', 'variant')};
   line-height: ${getStyleByProp('lineHeights', 'variant')};

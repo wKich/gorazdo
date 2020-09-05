@@ -27,6 +27,6 @@ Primary.args = {
 export const Primary400 = Template.bind({});
 Primary400.args = {
   children: 'Typography-1',
-  variant: '400', // should be a string, otherwise it doesn't preselect value in storybook
+  variant: 'h400', // should be a string, otherwise it doesn't preselect value in storybook
   as: 'h4',
 };

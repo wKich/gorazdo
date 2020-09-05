@@ -5,6 +5,7 @@ import { StoryContext, StoryGetter, StoryWrapper } from '@storybook/addons';
 import GlobalStyle from 'components/GlobalStyle';
 import dark from 'styles/themes/dark';
 import light from 'styles/themes/light';
+import { LocaleProvider } from 'contexts/Locale';
 import { makeDecorator } from '@storybook/addons';
 
 export const parameters = {
@@ -25,9 +26,27 @@ export const globalTypes = {
       items: ['light', 'dark'],
     },
   },
+  locale: {
+    name: 'Language',
+    description: 'Global theme for components',
+    defaultValue: 'ru',
+    toolbar: {
+      icon: 'globe',
+      // array of plain string values or MenuItem shape (see below)
+      items: ['ru', 'en'],
+    },
+  },
 };
 
 const themes = { light, dark };
+
+const withLocaleProvider = (Story, context) => {
+  return (
+    <LocaleProvider mockLocale={context.globals.locale}>
+      <Story {...context} />
+    </LocaleProvider>
+  );
+};
 
 const withThemeProvider = (Story, context) => {
   const theme = themes[context.globals.theme];
@@ -63,4 +82,4 @@ const withFigma = makeDecorator({
   },
 });
 
-export const decorators = [withThemeProvider, withFigma];
+export const decorators = [withLocaleProvider, withThemeProvider, withFigma];

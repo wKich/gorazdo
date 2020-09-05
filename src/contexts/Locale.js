@@ -19,11 +19,11 @@ const useNavigatorLocale = () => {
   }
 };
 
-export const LocaleProvider = ({ children }) => {
+export const LocaleProvider = ({ children, mockLocale }) => {
   const defaultLocale = useNavigatorLocale();
   const [locale, setLocale] = useSessionStorageState(defaultLocale, 'locale');
   return (
-    <LocaleContext.Provider value={[locale, setLocale]}>
+    <LocaleContext.Provider value={[mockLocale ?? locale, setLocale]}>
       {children}
     </LocaleContext.Provider>
   );

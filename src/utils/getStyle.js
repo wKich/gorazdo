@@ -7,7 +7,7 @@ const getStyle = (...params) => (props) => {
     if (key === 'colors' && typeof postProcessor === 'function') {
       return postProcessor(Color(result)).string();
     }
-    if (['space', 'sizes', 'radii', 'lineHeights', 'fontSizes'].includes(key)) {
+    if (KEYS_PIXELED.includes(key)) {
       return `${result}px`;
     }
     return result;
@@ -32,7 +32,9 @@ export const getStyleByProp = (...params) => (props) => {
   if (key === 'colors' && typeof postProcessor === 'function') {
     return postProcessor(Color(result)).string();
   }
-  if (['space', 'sizes', 'radii', 'lineHeight', 'fontSize'].includes(key)) {
+  if (KEYS_PIXELED.includes(key)) {
     return `${result}px`;
   }
 };
+
+const KEYS_PIXELED = ['space', 'sizes', 'radii', 'lineHeights', 'fontSizes'];
