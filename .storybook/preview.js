@@ -1,13 +1,13 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withDesign } from 'storybook-addon-designs';
+import { addDecorator, addParameters } from '@storybook/react';
 import { StoryContext, StoryGetter, StoryWrapper } from '@storybook/addons';
 import GlobalStyle from 'components/GlobalStyle';
 import dark from 'styles/themes/dark';
 import light from 'styles/themes/light';
 import { LocaleProvider } from 'contexts/Locale';
 import { makeDecorator } from '@storybook/addons';
-
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   args: {

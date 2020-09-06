@@ -20,14 +20,14 @@ const extractLocale = (value, locale) => {
   return value;
 };
 
-const useLocalizedValue = ({ value, path, doc }) => {
-  const [locale] = useContext(LocaleContext);
-  if (doc && path) {
-    const value = doc.get(path);
-    return extractLocale(value, locale);
-  }
-  return extractLocale(value, locale);
-};
+// const useLocalizedValue = ({ value, path, doc }) => {
+//   const [locale] = useContext(LocaleContext);
+//   if (doc && path) {
+//     const value = doc.get(path);
+//     return extractLocale(value, locale);
+//   }
+//   return extractLocale(value, locale);
+// };
 
 const SimpleText = (props) => {
   const { component: Component, value, ...rest } = props;

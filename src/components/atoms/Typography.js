@@ -8,6 +8,7 @@ const StyledComponent = styled('span')`
   margin: 0;
   padding: 0;
   color: ${getStyle('colors', 'font')};
+  font-weight: bold;
   font-size: ${getStyleByProp('fontSizes', 'variant')};
   line-height: ${getStyleByProp('lineHeights', 'variant')};
 `;
