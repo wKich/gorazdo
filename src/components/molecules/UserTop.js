@@ -12,7 +12,7 @@ const StyledBox = styled(Box)`
 `;
 
 const Hgroup = styled('hgroup')`
-  margin-left: ${getStyle('space', 2)};
+  margin-left: ${getStyle('space', 1)};
 `;
 
 export const UserTop = ({ doc }) => {
