@@ -7,6 +7,7 @@ const StyledDiv = styled('div')`
   width: ${getStyleByProp('sizes', 'size')};
   height: ${getStyleByProp('sizes', 'size')};
   border-radius: 50%;
+  border: 1px solid #000;
   background-size: cover;
   background-position: center;
   background-color: ${getStyle('colors', 'card')};
