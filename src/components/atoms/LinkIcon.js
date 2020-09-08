@@ -15,8 +15,8 @@ const IconInner = styled('div')`
   height: 100%;
   width: 50%;
   border-radius: inherit;
-  background: black;
-  color: white;
+  background: gray;
+  color: pink;
   display: flex;
   justify-content: center;
   align-items: center;
