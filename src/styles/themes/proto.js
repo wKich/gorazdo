@@ -2,11 +2,11 @@ const gridStep = 8;
 
 const range = (start = 0, end, step = 1) => {
   return new Array(end).fill(null).map((item, index) => {
-    return start + index + step;
+    return (start + index) * step;
   });
 };
 
-const theme = {
+const protoTheme = {
   breakpoints: ['544px', '768px', '1012px', '1280px'],
   maxWidths: {
     small: '544px',
@@ -36,8 +36,8 @@ const theme = {
     ]),
   },
   fontWeights: {
-    light: 300,
-    normal: 400,
+    regular: 300,
+    semibold: 400,
     bold: 600,
   },
   borders: {
@@ -53,19 +53,15 @@ const theme = {
     formControl: 'rgba(27, 31, 35, 0.075) 0px 1px 2px inset',
     formControlFocus: 'rgba(3, 102, 214, 0.3) 0px 0px 0px 0.2em',
   },
-  radii: [0, 4, 8, 16, 32, 48],
-  space: [0, 8, 16, 24, 36, 42, 48, 60, 72, 96],
-  unit: 8,
-  sizes: [0, 0.5, 1, 1.5].concat(range(2, 20)).reduce((acc, item) => {
-    acc[item] = item * gridStep;
-    return acc;
-  }, {}),
+  radii: [0, 2, 4, 8, 16, 32, 64],
+  space: range(0, 10, gridStep / 2),
+  sizes: range(2, 20, gridStep),
   fontSizes: {
     small: 10,
+    subtitle: 12,
     normal: 12,
     medium: 14,
     large: 16,
-    subtitle: 12,
 
     h100: 12,
     h200: 14,
@@ -96,7 +92,7 @@ const theme = {
   },
 };
 
-export default theme;
+export { protoTheme };
 
 function fontStack(fonts) {
   return fonts

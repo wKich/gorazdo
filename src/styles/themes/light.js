@@ -1,4 +1,4 @@
-import protoTheme from './proto';
+import { protoTheme } from './proto';
 
 const variants = {
   colors: {
