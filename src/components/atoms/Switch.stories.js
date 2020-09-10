@@ -26,7 +26,7 @@ CustomColor.args = {
 const TemplateClickable = (args) => {
   const [state, setState] = useState(false);
   const handleClick = () => {
-    setState(!state);
+    setState(!Boolean(state));
   };
   return <Switch {...args} isOn={state} onClick={handleClick} />;
 };
