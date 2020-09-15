@@ -4,6 +4,12 @@ import styled from 'styled-components';
 import getStyle, { getStyleByProp } from 'utils/getStyle';
 import { Button } from './Button';
 
+/**
+ * 1. Use Button as an atom, atoms/Button.js
+ * 2. Move ContactForm to organisms/ContactForm (don't forget to rename the story)
+ * 3. Create a new molecula for molecules/TypographyBlock.js
+ */
+
 const FormBox = styled('div')`
   width: 752px;
   height: 224px;
