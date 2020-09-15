@@ -20,14 +20,18 @@ const StyledButton = styled.button`
     outline: none;
   }
   &:hover {
-    background-color: ${getStyle('colors', 'primary.primary', color =>
+    background-color: ${getStyle('colors', 'primary.primary', (color) =>
       color.lighten(0.1)
     )};
   }
   &:active {
-    background-color: ${getStyle('colors', 'primary.primary', color =>
+    background-color: ${getStyle('colors', 'primary.primary', (color) =>
       color.lighten(0.2)
     )};
   }
 `;
 export default StyledButton;
+
+export const Button = (props) => {
+  return <StyledButton {...props} />;
+};

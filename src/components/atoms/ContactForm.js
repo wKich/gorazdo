@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import getStyle, { getStyleByProp } from 'utils/getStyle';
-
-
+import { Button } from './Button';
 
 const FormBox = styled('div')`
   width: 752px;
@@ -11,9 +10,9 @@ const FormBox = styled('div')`
   border-radius: 16px;
   background-size: cover;
   background-position: center;
-  background-color: #BDCCFF;
+  background-color: #bdccff;
   display: flex;
-  flex-direction: row; 
+  justify-content: space-between;
   align-items: center;
   padding-left: 120px;
   padding-right: 80px;
@@ -40,71 +39,75 @@ const Descriptive = styled('div')`
   font-weight: normal;
   font-size: 16px;
   line-height: 24px;
-  color: #1A1A1A;
+  color: #1a1a1a;
   margin: 4px;
 `;
 
-const FormButtonBox = styled('div')`
+const JustButton = styled('a')`
   width: 120px;
   height: 48px;
+  border: none;
   border-radius: 4px;
-  margin-top:88px;
-  margin-bottom:88px;
-  margin-right:80px;
-  margin-left:120px;
   background-size: cover;
   background-position: center;
-  background-color: black;
+  background-color: ${(props) => props.$bgColor};
+  color: ${(props) => props.$color};
   display: flex;
   align-items: center;
   justify-content: center;
+  &:hover {
+    background-color: grey;
+  }
+  &:active {
+    transform: translateY(2px);
+  }
+  &:focus {
+    box-shadow: 2px 2px 15px -7px ${(props) => props.$bgColor};
+    outline: none;
+  }
 `;
 
-const ButtonText = styled('div')`
-  position: static;
-  height: 24px;
-  left: 32px;
-  right: 32px;
-  font-family: Calibri;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  color: #FFFFFF;
-`;
-
-
-
-export const ContactForm = ({ buttoncolor, 
-                              buttonlabel, 
-                              buttontextcolor,
-                              offer, 
-                              descriptive }) => {
+export const ContactForm = ({
+  buttonColor,
+  buttonLabel,
+  buttonTextColor,
+  offerLabel,
+  descriptive,
+}) => {
   return (
-  <FormBox> 
-    <Offer><span>{offer}</span></Offer> 
-    <Descriptive><span>{descriptive}</span></Descriptive>
-    <FormButtonBox color = {buttoncolor}>
-        <ButtonText color = {buttontextcolor}>
-          <span> {buttonlabel} </span>
-        </ButtonText>
-    </FormButtonBox>
-  </FormBox>
+    <FormBox>
+      <div>
+        <Offer>
+          <span>{offerLabel}</span>
+        </Offer>
+        <Descriptive>
+          <span>{descriptive}</span>
+        </Descriptive>
+      </div>
+      <JustButton
+        $bgColor={buttonColor}
+        $color={buttonTextColor}
+        href="mailto:pavepy@gmail.com"
+      >
+        {buttonLabel}
+      </JustButton>
+      <Button>Привет!</Button>
+    </FormBox>
   );
 };
 
 ContactForm.propTypes = {
-  buttoncolor: PropTypes.string,
-  buttontextcolor: PropTypes.string,
-  buttonlabel: PropTypes.string,
-  offer: PropTypes.string,
+  buttonColor: PropTypes.string,
+  buttonTextColor: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  offerLabel: PropTypes.string,
   descriptive: PropTypes.string,
 };
 
 ContactForm.defaultProps = {
-  buttonlabel: 'Email',
-  buttoncolor: 'black',
-  buttontextcolor: 'white',
-  offer: 'Contact me',
+  buttonLabel: 'Email',
+  buttonColor: 'black',
+  buttonTextColor: 'white',
+  offerLabel: 'Contact me',
   descriptive: 'If you want',
 };
