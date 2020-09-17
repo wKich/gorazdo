@@ -11,9 +11,18 @@ const variants = {
     },
   },
   buttons: {
-    primary: {},
-    secondary: {},
-    accent: {},
+    primary: {
+      background: '#000',
+      color: '#fff',
+    },
+    secondary: {
+      background: '#333',
+      color: '#ddd',
+    },
+    accent: {
+      background: '#2C5DE5',
+      color: '#fff',
+    },
   },
 };
 

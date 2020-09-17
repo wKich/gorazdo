@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import getStyle, { getStyleByProp } from 'utils/getStyle';
 import { Button } from './Button';
 
 /**
@@ -49,39 +48,24 @@ const Descriptive = styled('div')`
   margin: 4px;
 `;
 
-const JustButton = styled('a')`
-  width: 120px;
-  height: 48px;
-  border: none;
-  border-radius: 4px;
-  background-size: cover;
-  background-position: center;
-  background-color: ${(props) => props.$bgColor};
-  color: ${(props) => props.$color};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover {
-    background-color: grey;
-  }
-  &:active {
-    transform: translateY(2px);
-  }
-  &:focus {
-    box-shadow: 2px 2px 15px -7px ${(props) => props.$bgColor};
-    outline: none;
-  }
-`;
+const myProps = {
+  myProp: 'Hi',
+  children: 'Привет!',
+};
 
-export const ContactForm = ({
-  buttonColor,
-  buttonLabel,
-  buttonTextColor,
-  offerLabel,
-  descriptive,
-}) => {
+export const ContactForm = (props) => {
+  const {
+    color,
+    buttonColor,
+    buttonLabel,
+    buttonTextColor,
+    offerLabel,
+    descriptive,
+  } = props;
+
   return (
     <FormBox>
+      <Button palette="accent">Привет!</Button>
       <div>
         <Offer>
           <span>{offerLabel}</span>
@@ -90,19 +74,12 @@ export const ContactForm = ({
           <span>{descriptive}</span>
         </Descriptive>
       </div>
-      <JustButton
-        $bgColor={buttonColor}
-        $color={buttonTextColor}
-        href="mailto:pavepy@gmail.com"
-      >
-        {buttonLabel}
-      </JustButton>
-      <Button>Привет!</Button>
     </FormBox>
   );
 };
 
 ContactForm.propTypes = {
+  color: PropTypes.string,
   buttonColor: PropTypes.string,
   buttonTextColor: PropTypes.string,
   buttonLabel: PropTypes.string,
@@ -110,7 +87,9 @@ ContactForm.propTypes = {
   descriptive: PropTypes.string,
 };
 
+const RED_COLOR = 'red';
 ContactForm.defaultProps = {
+  color: RED_COLOR,
   buttonLabel: 'Email',
   buttonColor: 'black',
   buttonTextColor: 'white',
