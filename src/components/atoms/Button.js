@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import getStyle from '../../utils/getStyle';
 
-const getButtonColor = (buttonThemeProperty) => {
+const getButtonColor = (buttonThemeProperty, key = 'palette') => {
   console.log(getButtonColor, buttonThemeProperty);
   return (props) => {
     console.log(props);
-    return props.theme.buttons[props.palette][buttonThemeProperty];
+    return props.theme.buttons[props[key]][buttonThemeProperty];
   };
 };
 
