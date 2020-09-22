@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { propTypes } from 'react-typography/dist/GoogleFont';
-
+import PropTypes from 'prop-types';
 
 const BadgeBack = styled('div')`
   width: auto;
@@ -14,32 +13,33 @@ const BadgeBack = styled('div')`
 `;
 
 const BadgeText = styled('div')`
-display: flex;
-color: ${(props) => props.$color};
-margin: 4, 12, 4;
-align-items: center;
+  display: flex;
+  color: ${(props) => props.$color};
+  margin: 4, 12, 4;
+  align-items: center;
 
-justify-content: center;
-font-size: 14px;
-font-weight: normal;
-
-`
-export const Badge = ({label, badgeColor, textColor}) => {
-  return <BadgeBack $bgColor={badgeColor}>
-    <BadgeText $color = {textColor}>
-<span>{label}</span>
-    </BadgeText>
-    </BadgeBack>;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: normal;
+`;
+export const Badge = ({ label, badgeColor, textColor }) => {
+  return (
+    <BadgeBack $bgColor={badgeColor}>
+      <BadgeText $color={textColor}>
+        <span>{label}</span>
+      </BadgeText>
+    </BadgeBack>
+  );
 };
 
 Badge.propTypes = {
-  label: propTypes.string,
-badgeColor: propTypes.string,
-textColor: propTypes.string
+  label: PropTypes.string,
+  badgeColor: PropTypes.string,
+  textColor: PropTypes.string,
 };
 
 Badge.defaultProps = {
   label: 'JavaScript',
   badgeColor: '#FCDFD3',
-  textColor: '#F15D23'
+  textColor: '#F15D23',
 };
