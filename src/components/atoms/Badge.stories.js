@@ -10,12 +10,11 @@ export default {
   },
 };
 
-
-
+/** TODO:
+ * Add more examples of badges (different colors)
+ */
 
 const Template = (args) => <Badge {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
- 
-};
+Default.args = {};
