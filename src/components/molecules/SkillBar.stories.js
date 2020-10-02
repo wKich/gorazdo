@@ -15,7 +15,6 @@ const Template = (args) => <SkillBar {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   label: 'Top Skills',
-  topBadges: [{ label: 'Storybook' }, { label: 'React' }],
 };
 
 export const TestExample = Template.bind({});

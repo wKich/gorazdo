@@ -41,18 +41,15 @@ const BadgeConteiner = styled('div')`
 const DEFAULT_BADGES_MOCK = [
   {
     label: 'Javascript',
-    badgeColor: '#ffaabb',
-    textColor: '#3C7EEC',
+    hue: 348,
   },
   {
     label: 'React',
-    badgeColor: '#D8E5FB',
-    textColor: '#002233',
+    hue: 218,
   },
   {
     label: 'NodeJs',
-    badgeColor: '#D6FEC3',
-    textColor: '#5AC377',
+    hue: 101,
   },
 ];
 
@@ -65,8 +62,8 @@ export const SkillBar = ({ label, topBadges, badges }) => {
           <Badge
             key={badgeItem.label}
             label={badgeItem.label}
-            badgeColor={badgeItem.badgeColor}
-            textColor={badgeItem.textColor}
+            badgeColor={`hsl(${badgeItem.hue}, 80%, 90%)`}
+            textColor={`hsl(${badgeItem.hue}, 60%, 40%)`}
           />
         ))}
       </StyledHeader>
@@ -75,8 +72,8 @@ export const SkillBar = ({ label, topBadges, badges }) => {
           <Badge
             key={badgeLabel}
             label={badgeLabel}
-            badgeColor="#ccc"
-            textColor="#333"
+            badgeColor="#F2F5F8"
+            textColor="#8794A1"
           />
         ))}
       </BadgeConteiner>
@@ -86,8 +83,13 @@ export const SkillBar = ({ label, topBadges, badges }) => {
 
 SkillBar.propTypes = {
   label: PropTypes.string,
-  topBadges: PropTypes.array,
-  badges: PropTypes.array,
+  topBadges: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      hue: PropTypes.number,
+    })
+  ),
+  badges: PropTypes.arrayOf(PropTypes.string),
 };
 
 SkillBar.defaultProps = {
