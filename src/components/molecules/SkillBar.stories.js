@@ -1,7 +1,6 @@
 import React from 'react';
 import { SkillBar } from './SkillBar';
 
-
 export default {
   title: 'Molecules/SkillBar',
   componen: SkillBar,
@@ -15,6 +14,23 @@ const Template = (args) => <SkillBar {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Top Skills'
-  
+  label: 'Top Skills',
+  topBadges: [{ label: 'Storybook' }, { label: 'React' }],
+};
+
+export const TestExample = Template.bind({});
+TestExample.args = {
+  label: 'Test example',
+  topBadges: [
+    {
+      label: 'React',
+      badgeColor: '#D8E5FB',
+      textColor: '#002233',
+    },
+    {
+      label: 'NodeJs',
+      badgeColor: '#D6FEC3',
+      textColor: '#5AC377',
+    },
+  ],
 };
