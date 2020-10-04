@@ -1,33 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import getStyle from '../../utils/getStyle';
 
 const StyledButton = styled.button`
   border: 2px solid black;
-  padding: ${getStyle('space', 1)} 0;
+  padding: ${(props) => props.theme.spacing(1)} 0;
   cursor: pointer;
   background: transparent;
   border: none;
   color: white;
-  min-width: ${getStyle('sizes', 4)};
+  min-width: ${(props) => props.theme.spacing(4)};
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: ${getStyle('radii', 2)};
-  background-color: ${getStyle('colors', 'primary.primary')};
+  border-radius: ${(props) => props.theme.spacing(1)};
+  background-color: ${(props) => props.theme.color('primary', 'main')};
   &:focus {
     outline: none;
   }
   &:hover {
-    background-color: ${getStyle('colors', 'primary.primary', color =>
-      color.lighten(0.1)
-    )};
+    background-color: ${(props) =>
+      props.theme.color('primary', 'main', (color) => color.lighten(0.1))};
   }
   &:active {
-    background-color: ${getStyle('colors', 'primary.primary', color =>
-      color.lighten(0.2)
-    )};
+    background-color: ${(props) =>
+      props.theme.color('primary', 'main', (color) => color.lighten(0.2))};
   }
 `;
 export default StyledButton;

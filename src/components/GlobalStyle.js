@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import getStyle from '../utils/getStyle';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -22,12 +21,12 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     box-sizing: border-box;
-    background-color: ${getStyle('colors', 'paper')};
+    background-color: ${(props) => props.theme.palette.background.paper};
   }
 
   html > body {
     /* overrides Typography.js default coloring */
-    color: ${getStyle('colors', 'font')};
+    color: ${(props) => props.theme.palette.text.primary};
   }
 
   *,
@@ -46,14 +45,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${getStyle('colors', 'scrollbarThumb')};
+    background-color: ${(props) => props.theme.palette.misc.scrollbarThumb};
   }
   a {
     color: inherit;
     text-decoration: none;
     border-bottom: 1px solid rgba(127,127,127,0.4);
     :hover {
-      border-bottom-color: ${getStyle('colors', 'font')}
+      border-bottom-color: ${(props) => props.theme.palette.text.primary}
     }
   }
 `;

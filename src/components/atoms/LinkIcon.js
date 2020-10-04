@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaLink } from 'react-icons/fa';
 import styled from 'styled-components';
-import getStyle from 'utils/getStyle';
 
 export const LinkIcon = (props) => (
   <IconOuter href={props.href} target="_blank">
@@ -26,8 +25,8 @@ const IconInner = styled('div')`
 const IconOuter = styled('a')`
   display: block;
   cursor: pointer;
-  height: ${getStyle('sizes', 5)};
-  width: ${getStyle('sizes', 10)};
+  height: ${(props) => props.theme.spacing(5)};
+  width: ${(props) => props.theme.spacing(10)};
   border: none;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.2);

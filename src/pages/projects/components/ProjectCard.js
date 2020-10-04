@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import getStyle from '../../../utils/getStyle';
+
 import Button from '../../../components/atoms/Button';
 import {
   HOVER_DURATION,
@@ -13,7 +13,7 @@ import { Content } from './Content';
 import { MdOpenInNew } from 'react-icons/md';
 import { useDebounce, useMouseTrack } from '../hooks';
 const StyledHeader = styled('h2')`
-  padding-right: ${getStyle('sizes', 5)};
+  padding-right: ${(props) => props.theme.spacing(5)};
 `;
 
 const BackgroundWrapper = styled.div`
@@ -35,7 +35,7 @@ const Background = styled('div').attrs((props) => ({
   height: 100%;
   width: 100%;
   will-change: transform;
-  border-radius: ${getStyle('space', 1)};
+  border-radius: ${(props) => props.theme.spacing(1)};
   background-size: 140%;
   background-repeat: no-repeat;
   transition: transform ${HOVER_DURATION} ease-out;
@@ -57,8 +57,8 @@ const InnerWrapper = styled.div.attrs((props) => ({
     )}deg)`,
   },
 }))`
-  border-radius: ${getStyle('space', 3)};
-  background-color: ${getStyle('colors', 'card')};
+  border-radius: ${(props) => props.theme.spacing(3)};
+  background-color: ${(props) => props.theme.background.default};
   overflow: hidden;
   position: relative;
   height: 100%;
@@ -68,11 +68,11 @@ const InnerWrapper = styled.div.attrs((props) => ({
     transition: transform ${HOVER_DURATION} ease-out;
   }
   ::after {
-    top: ${getStyle('space', 1)};
-    left: ${getStyle('space', 1)};
-    right: ${getStyle('space', 1)};
-    bottom: ${getStyle('space', 1)};
-    border-radius: ${getStyle('space', 2)};
+    top: ${(props) => props.theme.spacing(1)};
+    left: ${(props) => props.theme.spacing(1)};
+    right: ${(props) => props.theme.spacing(1)};
+    bottom: ${(props) => props.theme.spacing(1)};
+    border-radius: ${(props) => props.theme.spacing(2)};
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.6);
     content: '';
@@ -88,22 +88,24 @@ const ButtonTransformer = styled('div').attrs((props) => ({
   },
 }))`
   position: absolute;
-  right: ${getStyle('space', 6)};
-  bottom: ${getStyle('space', 6)};
+  right: ${(props) => props.theme.spacing(6)};
+  bottom: ${(props) => props.theme.spacing(6)};
   transition: transform ${HOVER_DURATION} ease-out;
 `;
 
 const StyledButton = styled(Button)`
-  background-color: ${getStyle('colors', 'font', (color) => color.alpha(0.2))};
-  border: 2px solid ${getStyle('colors', 'font', (color) => color.alpha(0.6))};
-  color: ${getStyle('colors', 'font')};
-  padding: ${getStyle('space', 1)};
-  width: ${getStyle('sizes', 4)};
+  background-color: ${(props) =>
+    props.theme.color('text', 'primary', (color) => color.alpha(0.2))};
+  border: 2px solid
+    ${(props) =>
+      props.theme.color('text', 'primary', (color) => color.alpha(0.6))};
+  color: ${(props) => props.theme.palette.text.primary};
+  padding: ${(props) => props.theme.spacing(1)};
+  width: ${(props) => props.theme.spacing(4)};
   transition: all ${HOVER_DURATION} ease-out;
   :hover {
-    background-color: ${getStyle('colors', 'font', (color) =>
-      color.alpha(0.4)
-    )};
+    background-color: ${(props) =>
+      props.theme.color('text', 'primary', (color) => color.alpha(0.4))};
     /* box-shadow: 0 0 40px rgba(0, 0, 0, 0.6) !important; */
   }
   &:active {
@@ -113,9 +115,9 @@ const StyledButton = styled(Button)`
   }
 `;
 const Wrapper = styled.div`
-  width: ${getStyle('sizes', CARD_WIDTH)};
-  color: ${getStyle('colors', 'font')};
-  height: ${getStyle('sizes', 10)};
+  width: ${(props) => props.theme.spacing(CARD_WIDTH)};
+  color: ${(props) => props.theme.palette.text.primary};
+  height: ${(props) => props.theme.spacing(10)};
   perspective: 500px;
   transform-style: preserve-3d;
   transition: transform ${HOVER_DURATION} ease-out;

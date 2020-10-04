@@ -1,27 +1,22 @@
-import protoTheme from './proto';
+import { color } from '../color';
+import { createMuiTheme } from '@material-ui/core';
 
-const variants = {
-  colors: {
-    paper: '#09090a',
-    pane: '#1a1b1e',
-    scrollbarThumb: '#111',
-    card: 'black',
-    font: 'white',
+const dark = createMuiTheme({
+  name: 'dark',
+  type: 'dark',
+  palette: {
+    misc: {
+      scrollbarThumb: '#111',
+    },
+    background: {
+      paper: '#f4f4f4',
+      default: 'white',
+    },
     primary: {
-      primary: '#2626a9',
+      main: '#2626a9',
     },
   },
-  buttons: {
-    primary: {},
-    secondary: {},
-    accent: {},
-  },
-};
-
-const dark = {
-  name: 'dark',
-  ...protoTheme,
-  ...variants,
-};
+  color,
+});
 
 export default dark;

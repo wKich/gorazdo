@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MdAdd } from 'react-icons/md';
 import ServiceCard from './ServiceCard';
 import { useServices } from '../../hooks';
-import getStyle from '../../utils/getStyle';
+
 import { Ribbon } from '../molecules/Ribbon';
 import { PromoServicesPane } from './Services/PromoServicesPane';
 
@@ -15,8 +15,8 @@ const AllFeatures = styled.div`
   top: 0;
   z-index: 100;
   bottom: 0;
-  width: ${getStyle('sizes', 16)};
-  background-color: ${getStyle('colors', 'paper')};
+  width: ${(props) => props.theme.spacing(16)};
+  background-color: ${(props) => props.theme.palette.background.paper};
   overflow-y: auto;
 `;
 
@@ -26,13 +26,13 @@ const insertAtIndex = (arr, index, item) => {
   return shallowCopy;
 };
 
-const PromoOffers = props => {
+const PromoOffers = (props) => {
   const [isDragStarted, setDragStarted] = useState(false);
   const [querySnapshot, loading, error] = useServices();
   const docsArray = useMemo(
     () =>
       querySnapshot
-        ? querySnapshot.docs.map(doc => ({
+        ? querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }))
@@ -58,32 +58,32 @@ const PromoOffers = props => {
   });
 
   useEffect(() => {
-    setPromo(prevState => ({
+    setPromo((prevState) => ({
       ...prevState,
-      market: docsArray.map(item => item.id),
+      market: docsArray.map((item) => item.id),
     }));
   }, [docsArray]);
 
-  const onBeforeCapture = e => {
+  const onBeforeCapture = (e) => {
     console.log('onBeforeCapture', e);
     /*...*/
   };
 
-  const onBeforeDragStart = e => {
+  const onBeforeDragStart = (e) => {
     setDragStarted(true);
     console.log('onBeforeDragStart', e);
     /*...*/
   };
 
-  const onDragStart = e => {
+  const onDragStart = (e) => {
     console.log('onDragStart', e);
     /*...*/
   };
-  const onDragUpdate = e => {
+  const onDragUpdate = (e) => {
     console.log('onDragUpdate', e);
     /*...*/
   };
-  const handleDragEnd = props => {
+  const handleDragEnd = (props) => {
     console.log(props);
     setDragStarted(false);
     const { draggableId, source, destination } = props;
@@ -91,7 +91,7 @@ const PromoOffers = props => {
       setPromo({
         ...promo,
         [source.droppableId]: promo[source.droppableId].filter(
-          id => id !== draggableId
+          (id) => id !== draggableId
         ),
         [destination.droppableId]: [
           ...new Set(
@@ -108,7 +108,7 @@ const PromoOffers = props => {
   const handleRemove = ({ draggableId, droppableId }) => {
     setPromo({
       ...promo,
-      [droppableId]: promo[droppableId].filter(id => id !== draggableId),
+      [droppableId]: promo[droppableId].filter((id) => id !== draggableId),
     });
   };
   console.log(promo.market);

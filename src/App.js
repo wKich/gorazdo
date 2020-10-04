@@ -1,10 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import Header from './components/Header';
-import { TypographyStyle, GoogleFont } from 'react-typography';
-// Best practice is to have a typography module
-// where you define your theme.
-import typography from './utils/typography';
 import GlobalStyle from './components/GlobalStyle';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home } from './pages/home';
@@ -24,9 +20,6 @@ function App() {
           <ThemeProvider>
             <div className="App">
               <GlobalStyle />
-              <TypographyStyle typography={typography} />
-              <GoogleFont typography={typography} />
-
               <Header />
               <Switch>
                 <Route path="/projects">

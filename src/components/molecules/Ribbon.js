@@ -2,13 +2,13 @@ import React from 'react';
 import Box from '../atoms/Box';
 import styled from 'styled-components';
 import { MdAdd } from 'react-icons/md';
-import getStyle from '../../utils/getStyle';
 
 const StyledRibbon = styled.div`
   position: relative;
-  width: ${getStyle('sizes', 16)};
+  width: ${(props) => props.theme.spacing(16)};
   outline: 1px solid #fff;
-  min-height: ${(props) => getStyle('sizes', props.slots * 4)(props)};
+  min-height: ${(props) => (props) =>
+    props.theme.spacing(props.slots * 4)(props)};
 `;
 
 export const Ribbon = (props) => {

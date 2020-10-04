@@ -13,20 +13,15 @@ export default {
 
 const Template = (args) => <Typography {...args} />;
 
-export const Subtitle = Template.bind({});
-Subtitle.args = {
-  variant: 'subtitle',
-};
-
 export const Primary = Template.bind({});
 Primary.args = {
   children: 'Typography-1',
-  variant: 'h300',
+  variant: 'h3',
 };
 
 export const Primary400 = Template.bind({});
 Primary400.args = {
   children: 'Typography-1',
-  variant: 'h400', // should be a string, otherwise it doesn't preselect value in storybook
+  variant: 'h4', // should be a string, otherwise it doesn't preselect value in storybook
   as: 'h4',
 };

@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import getStyle from '../../../utils/getStyle';
 
 export const Content = styled.div`
-  border-radius: ${getStyle('space', 3)};
-  padding: ${getStyle('space', 3)};
+  border-radius: ${(props) => props.theme.spacing(3)};
+  padding: ${(props) => props.theme.spacing(3)};
   position: relative;
   z-index: 1;
   display: flex;
