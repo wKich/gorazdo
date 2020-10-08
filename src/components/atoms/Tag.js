@@ -8,25 +8,25 @@ import PropTypes from 'prop-types';
 */
 
 const TagBack = styled('div')`
-  height: 24px;
-  width: 96px;
-  border-radius: 16px;
+  height: ${(props) => props.theme.spacing(3) + 'px'};
+  border-radius: ${(props) => props.theme.spacing(2) + 'px'};
   background: #d8e5fb;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: ${(props) => props.theme.spacing(1.5) + 'px'};
+  padding-right: ${(props) => props.theme.spacing(1.5) + 'px'};
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: ${(props) => props.theme.spacing(1) + 'px'};
 `;
 
 const TagText = styled('span')`
   color: #3c7eec;
   transform: translateY(-5%);
 `;
-export const Tag = ({ label, tagColor, textColor }) => {
+export const Tag = ({ children, tagColor, textColor }) => {
   return (
     <TagBack>
-      <TagText>{label}</TagText>
+      <TagText>{children}</TagText>
     </TagBack>
   );
 };

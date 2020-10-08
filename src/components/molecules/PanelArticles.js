@@ -59,14 +59,14 @@ export const PanelArticles = ({}) => {
       <TextContainer>
         <StyledTitle>
           {' '}
-          <Typography variant="h400">
+          <Typography variant="h6">
             Анонс новой версии Styled Components v5: Звериный оскал
           </Typography>
         </StyledTitle>
         <SecondLineContainer>
           <TagsContainer>
-            <Tag>'Front-end'</Tag>
-            <Tag>'React'</Tag>
+            <Tag>Front-end</Tag>
+            <Tag>React</Tag>
           </TagsContainer>
           <Date>20.05.2020</Date>
         </SecondLineContainer>
