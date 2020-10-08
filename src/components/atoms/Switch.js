@@ -12,7 +12,11 @@ const flexIsOn = (props) => {
 const SwitchBack = styled('div')`
   height: 24px;
   width: 36px;
-  background: ${(props) => props.color};
+  background: ${(props) => {
+    // props.palette // primary
+    // props.shade // main
+    return props.theme.palette[props.palette][props.shade];
+  }};
   border-radius: 12px;
   background-size: cover;
   display: flex;
@@ -38,11 +42,11 @@ const SwitchWrapper = styled('div')`
   display: flex;
 `;
 // JSX
-export const Switch = ({ isOn, color, onClick, label }) => {
+export const Switch = ({ isOn, shade, palette, onClick, label }) => {
   return (
     <SwitchWrapper>
       <span>{label}</span>
-      <SwitchBack color={color} onClick={onClick}>
+      <SwitchBack shade={shade} palette={palette} onClick={onClick}>
         <SwitchDot isOn={isOn} />
       </SwitchBack>
     </SwitchWrapper>
@@ -52,12 +56,14 @@ export const Switch = ({ isOn, color, onClick, label }) => {
 Switch.propTypes = {
   label: PropTypes.string,
   isOn: PropTypes.bool,
-  color: PropTypes.string,
+  palette: PropTypes.oneOf(['primary', 'secondary']),
+  shade: PropTypes.oneOf(['light', 'main', 'dark']),
   onClick: PropTypes.func.isRequired,
 };
 
 Switch.defaultProps = {
   label: 'En',
   isOn: true,
-  color: 'black',
+  palette: 'primary',
+  shade: 'main',
 };

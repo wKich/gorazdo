@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import getStyle from '../../../utils/getStyle';
+
 import Button from '../../atoms/Button';
 import Box from '../../atoms/Box';
 const KORTING_MAP = {
@@ -18,25 +18,26 @@ const KORTING_GRADIENT_MAP = {
 const DEFAULT_PRICE = 200;
 const Header = styled.div`
   position: relative;
-  padding: ${getStyle('space', 2)};
-  width: ${getStyle('sizes', 16)};
+  padding: ${(props) => props.theme.spacing(2)};
+  width: ${(props) => props.theme.spacing(16)};
   border-radius: 1rem 1rem 0 0;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  background: ${getStyle('colors', 'card')};
+  background: ${(props) => props.theme.background.default};
 `;
 
 const Korting = styled.div`
-  width: ${getStyle('sizes', 3)};
-  padding: ${getStyle('space', 1)} ${getStyle('space', 3)};
+  width: ${(props) => props.theme.spacing(3)};
+  padding: ${(props) => props.theme.spacing(1)}
+    ${(props) => props.theme.spacing(3)};
   transform-origin: left center;
   position: absolute;
-  border-radius: ${getStyle('sizes', 4)};
+  border-radius: ${(props) => props.theme.spacing(4)};
   right: 0;
   text-align: center;
   bottom: 100%;
-  color: ${props => (props.active ? 'white' : 'rgba(255,255,255,.4)')};
+  color: ${(props) => (props.active ? 'white' : 'rgba(255,255,255,.4)')};
   font-weight: bold;
-  filter: ${props => (props.active ? 'grayscale(0%)' : 'grayscale(80%)')};
+  filter: ${(props) => (props.active ? 'grayscale(0%)' : 'grayscale(80%)')};
 `;
 
 const KortingParagraph = styled('p')`
@@ -65,8 +66,9 @@ const Slots = ({ slots, korting, ids }) => {
 };
 
 const StyledOldPrice = styled('span')`
-  color: ${getStyle('colors', 'font', color => color.alpha(0.5))};
-  text-decoration: ${props => props.isKortingApplied && 'strike-through'};
+  color: ${(props) =>
+    props.theme.color('text', 'primary', (color) => color.alpha(0.5))};
+  text-decoration: ${(props) => props.isKortingApplied && 'strike-through'};
 `;
 
 const StyledPrice = styled('span')``;
@@ -89,7 +91,7 @@ const Heading = styled('h3')`
   margin: 0;
 `;
 
-const ServiceHeader = props => {
+const ServiceHeader = (props) => {
   const { docsMap, ids, slots, serviceCode } = props;
   const summ = ids.reduce((summ, id) => {
     return summ + (docsMap.get(id).price || DEFAULT_PRICE);
@@ -130,7 +132,7 @@ ServiceHeader.defaultProps = {
   description: 'The best one to start',
   price: 1000,
   discount: 30,
-  onClick: e => alert('Hooray!'),
+  onClick: (e) => alert('Hooray!'),
 };
 
 export default ServiceHeader;
