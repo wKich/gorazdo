@@ -5,16 +5,14 @@ import ServiceCard from '../ServiceCard';
 import ServiceHeader from './ServiceHeader';
 import { Ribbon } from '../../molecules/Ribbon';
 import Box from '../../atoms/Box';
-import getStyle from '../../../utils/getStyle';
 
 const Wrapper = styled('div')`
-  margin: ${getStyle('space', 2)};
-  padding: ${getStyle('space', 2)};
-  border-radius: ${getStyle('space', 3)};
-  background-color: ${getStyle('colors', 'pane')};
+  margin: ${(props) => props.theme.spacing(2)};
+  padding: ${(props) => props.theme.spacing(2)};
+  border-radius: ${(props) => props.theme.spacing(3)};
 `;
 
-export const PromoServicesPane = props => {
+export const PromoServicesPane = (props) => {
   const { docsMap, ids, label, slots, serviceCode, remove } = props;
 
   return (

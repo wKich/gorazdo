@@ -8,9 +8,7 @@ export default {
     figma:
       'https://www.figma.com/file/oW95CY1Vcnb7PYICpP4By3/Gorazdo?node-id=180%3A0',
   },
-  argTypes: {
-    color: { control: 'color' },
-  },
+  argTypes: {},
 };
 
 const Template = (args) => <Switch {...args} />;
@@ -19,19 +17,15 @@ export const WhenDefaultProps = Template.bind({});
 WhenDefaultProps.args = {};
 
 export const CustomColor = Template.bind({});
-CustomColor.args = {
-  color: '#84367F',
-};
+CustomColor.args = {};
 
 const TemplateClickable = (args) => {
   const [state, setState] = useState(false);
   const handleClick = () => {
-    setState(!state);
+    setState(!Boolean(state));
   };
   return <Switch {...args} isOn={state} onClick={handleClick} />;
 };
 
 export const DemoClick = TemplateClickable.bind({});
-DemoClick.args = {
-  color: '#84367F',
-};
+DemoClick.args = {};
