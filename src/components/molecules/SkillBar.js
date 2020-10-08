@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Typography } from 'components/atoms/Typography';
 import { Badge } from 'components/atoms/Badge';
-import getStyle from 'utils/getStyle';
 
 const StyledBox = styled('div')`
   display: flex;
@@ -13,7 +12,7 @@ const StyledBox = styled('div')`
   width: 536px;
   padding-top: 15px;
   border-radius: 32px;
-  background: ${getStyle('colors', 'card')};
+  background: white;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 `;
 
@@ -57,7 +56,7 @@ const DEFAULT_BADGES_MOCK = [
 export const SkillBar = ({ label, topBadges, badges }) => {
   return (
     <StyledBox>
-      <Typography variant="h500">{label}</Typography>
+      <Typography variant="h6">{label}</Typography>
       <StyledHeader>
         {topBadges.map((badgeItem) => (
           <Badge
