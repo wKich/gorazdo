@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -27,7 +28,7 @@
   "scripts": {
     "start": "run-p --race dev:firebase dev:react",
     "dev:firebase": "firebase serve -p 4000",
-    "dev:react": "react-scripts start",
+    "dev:react": "set PORT=3006 && react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "cd functions && firebase deploy --only hosting:gorazdo",

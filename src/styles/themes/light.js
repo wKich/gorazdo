@@ -1,27 +1,22 @@
-import protoTheme from './proto';
+import { color } from '../color';
+import { createMuiTheme } from '@material-ui/core';
 
-const variants = {
-  colors: {
-    paper: '#f4f4f4',
-    card: 'white',
-    scrollbarThumb: '#999',
-    font: 'black',
+const light = createMuiTheme({
+  name: 'light',
+  type: 'light',
+  palette: {
+    misc: {
+      scrollbarThumb: '#999',
+    },
+    background: {
+      paper: '#f4f4f4',
+      default: 'white',
+    },
     primary: {
-      primary: '#2626a9',
+      main: '#2626a9',
     },
   },
-  buttons: {
-    primary: {},
-    secondary: {},
-    accent: {},
-  },
-};
-
-const light = {
-  name: 'light',
-  // backgroundColor: '#fff', // storybook needs it
-  ...protoTheme,
-  ...variants,
-};
+  color,
+});
 
 export default light;

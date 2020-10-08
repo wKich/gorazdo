@@ -4,7 +4,6 @@ import { useFirestoreRef } from 'hooks';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Box from 'components/atoms/Box';
 import styled from 'styled-components';
-import getStyle from 'utils/getStyle';
 import { LinkIcon } from 'components/atoms/LinkIcon';
 import { UserTop } from 'components/molecules/UserTop';
 
@@ -94,11 +93,11 @@ const HighlightsContainer = styled('div')`
 
 const StyledBackground = styled('div')`
   background-color: #5f75ee;
-  border-top-right-radius: ${getStyle('radii', 5)};
-  border-bottom-right-radius: ${getStyle('radii', 5)};
+  border-top-right-radius: ${(props) => props.theme.spacing(6)};
+  border-bottom-right-radius: ${(props) => props.theme.spacing(6)};
   min-height: 40vh;
   width: 40%;
   flex-shrink: 0;
-  margin-right: ${getStyle('space', 5)};
-  margin-top: ${getStyle('space', 3)};
+  margin-right: ${(props) => props.theme.spacing(5)};
+  margin-top: ${(props) => props.theme.spacing(3)};
 `;
