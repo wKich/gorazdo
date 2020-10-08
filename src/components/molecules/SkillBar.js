@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Typography } from 'components/atoms/Typography';
 import { Badge } from 'components/atoms/Badge';
+import getStyle from 'utils/getStyle';
 
 const StyledBox = styled('div')`
   display: flex;
@@ -12,7 +13,7 @@ const StyledBox = styled('div')`
   width: 536px;
   padding-top: 15px;
   border-radius: 32px;
-  background: white;
+  background: ${getStyle('colors', 'card')};
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
 `;
 
