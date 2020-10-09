@@ -13,6 +13,7 @@ export const parameters = {
   args: {
     children: 'The quick brown fox jumps over the lazy dog.',
   },
+  creevey: { captureElement: '#root', skip: [{ kinds: /Example\// }] },
 };
 
 export const globalTypes = {
